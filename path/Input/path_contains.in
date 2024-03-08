@@ -1,0 +1,8 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x exists y 
+	(path(y) & part(y,x))).
+		
+end_of_list.

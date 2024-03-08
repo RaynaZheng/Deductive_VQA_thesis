@@ -1,0 +1,11 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x all y all u all v 
+	((mub(u,v,x) & atom(u) & atom(v) & part(y,x))
+	->
+	(exists s exists t
+		(mub(s,t,y) & atom(s) & atom(t))))).
+		
+end_of_list.

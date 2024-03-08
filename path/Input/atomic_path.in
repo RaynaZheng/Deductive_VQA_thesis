@@ -1,0 +1,10 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x 
+	(atom(x)
+	-> 
+	(path(x)))).
+	
+end_of_list.

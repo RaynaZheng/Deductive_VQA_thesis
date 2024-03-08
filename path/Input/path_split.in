@@ -1,0 +1,12 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+% path_split
+(all a all b all x 
+	((mub(a,b,x) & atom(a) & atom(b))
+	-> 
+	(exists c exists y exists z
+		(atom(c) & mub(a,c,y) & mub(c,b,z) & sum(y,z,x))))).
+		
+end_of_list.

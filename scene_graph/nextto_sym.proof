@@ -1,0 +1,126 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 52182 was started by raynazheng on Raynas-MacBook-Air.local,
+Wed Feb 21 20:45:01 2024
+The command was "bin/prover9 -f /Users/raynazheng/Dropbox/Thesis/verification/nextto.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file /Users/raynazheng/Dropbox/Thesis/verification/nextto.in
+
+
+formulas(assumptions).
+(all x all y (next_to(x,y) <-> (exists z (atom(x) & atom(y) & x != y & sum(x,y,z))))).
+end_of_list.
+
+formulas(goals).
+(all x -next_to(x,x)).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x all y (next_to(x,y) <-> (exists z (atom(x) & atom(y) & x != y & sum(x,y,z))))) # label(non_clause).  [assumption].
+2 (all x -next_to(x,x)) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+-next_to(x,y) | atom(x).  [clausify(1)].
+-next_to(x,y) | atom(y).  [clausify(1)].
+-next_to(x,y) | y != x.  [clausify(1)].
+-next_to(x,y) | sum(x,y,f1(x,y)).  [clausify(1)].
+next_to(x,y) | -atom(x) | -atom(y) | y = x | -sum(x,y,z).  [clausify(1)].
+next_to(c1,c1).  [deny(2)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating next_to/2
+3 next_to(x,y) | -atom(x) | -atom(y) | y = x | -sum(x,y,z).  [clausify(1)].
+4 -next_to(x,y) | atom(x).  [clausify(1)].
+5 -next_to(x,y) | atom(y).  [clausify(1)].
+6 -next_to(x,y) | y != x.  [clausify(1)].
+7 -next_to(x,y) | sum(x,y,f1(x,y)).  [clausify(1)].
+Derived: -atom(x) | -atom(y) | y = x | -sum(x,y,z) | sum(x,y,f1(x,y)).  [resolve(3,a,7,a)].
+8 next_to(c1,c1).  [deny(2)].
+Derived: atom(c1).  [resolve(8,a,4,a)].
+Derived: c1 != c1.  [resolve(8,a,6,a)].
+Derived: sum(c1,c1,f1(c1,c1)).  [resolve(8,a,7,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ =, atom, sum ]).
+Function symbol precedence:  function_order([ c1, f1 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      9 -atom(x) | -atom(y) | y = x | -sum(x,y,z) | sum(x,y,f1(x,y)).  [resolve(3,a,7,a)].
+kept:      10 atom(c1).  [resolve(8,a,4,a)].
+           11 c1 != c1.  [resolve(8,a,6,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.00 (+ 0.01) seconds.
+% Length of proof is 6.
+% Level of proof is 3.
+% Maximum clause weight is 0.000.
+% Given clauses 0.
+
+1 (all x all y (next_to(x,y) <-> (exists z (atom(x) & atom(y) & x != y & sum(x,y,z))))) # label(non_clause).  [assumption].
+2 (all x -next_to(x,x)) # label(non_clause) # label(goal).  [goal].
+6 -next_to(x,y) | y != x.  [clausify(1)].
+8 next_to(c1,c1).  [deny(2)].
+11 c1 != c1.  [resolve(8,a,6,a)].
+12 $F.  [copy(11),xx(a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=3. Kept=2. proofs=1.
+Usable=0. Sos=0. Demods=0. Limbo=2, Disabled=9. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=0. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
+Megabytes=0.03.
+User_CPU=0.00, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 52182 exit (max_proofs) Wed Feb 21 20:45:01 2024

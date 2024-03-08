@@ -1,0 +1,95 @@
+formulas(assumptions).
+
+% mereology --- part()
+(all x
+	(part(x,x))).
+
+(all x all y
+	((part(x,y)
+	& part(y,x))
+	->
+	(x=y))).
+
+(all x all y all z
+	((part(x,y)
+	& part(y,z))
+	->
+	part(x,z))).
+
+% def: overlaps()
+(all x all y
+	(overlaps(x,y)
+	<->
+	(exists z
+		(part(z,x)
+		& part(z,y))))).
+
+(all x all y
+	(-part(x,y)
+	->
+	(exists z
+		(part(z,x)
+		& -overlaps(z,y))))).
+
+% def: proper part --- ppart()
+(all x all y
+	(ppart(x,y)
+	<->
+	(part(x,y) & (x != y)))).
+
+% def: sum()
+(all x all y all z
+	(sum(x,y,z)
+	<->
+	(all v
+		(overlaps(v,z)
+		<->
+		(overlaps(v,x)
+		| overlaps(v,y)))))).
+
+% def: atom()
+(all x 
+	(atom(x) 
+	<->  
+	(all y (part(y, x) -> (y = x))))).
+
+% There exist indivisible elements that are not atoms
+(all x 
+ 	(atom(x) | (exists y ((y != x) & ppart(y,x))))).
+
+(all x all y all z
+	(sum(x,y,z)
+	-> 
+	(part(x,z)))).
+
+% def: minimal upper bound --- mub()
+(all x all y all z
+	(mub(x,y,z)
+	<-> 
+	(part(x,z) & part(y,z) & 
+	-(exists u
+		(part(x,u) & part(y,u) & ppart(u,z)))))).
+
+(all x all y all z 
+	(dsum(y,z,x)
+	<->
+	(sum(y,z,x) & -overlaps(y,z)))).
+
+(all x
+	(path(x)
+	<-> 
+	(exists y exists z exists u exists w
+		(dsum(y,z,w) & dsum(w,u,x) & 
+			-(exists s (sum(u,y,s))))))).
+
+end_of_list.
+formulas(goals).
+
+% def: path()
+(all x 
+	(path(x)
+	<-> 
+	(exists y exists z 
+		(mub(y,z,x) & atom(y) & atom(z))))).
+
+end_of_list.

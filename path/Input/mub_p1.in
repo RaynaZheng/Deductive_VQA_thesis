@@ -1,0 +1,8 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x 
+	(mub(x,x,x))).
+
+end_of_list.

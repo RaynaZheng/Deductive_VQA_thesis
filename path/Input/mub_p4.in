@@ -1,0 +1,10 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x all y all z 
+	(part(x,y)
+	<->
+	mub(x,y,y))).
+
+end_of_list.

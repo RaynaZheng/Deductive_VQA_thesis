@@ -1,0 +1,84 @@
+============================== prooftrans ============================
+Prover9 (32) version Dec-2007, Dec 2007.
+Process 20855 was started by mudcat on Romuald.hitronhub.home,
+Mon Feb 12 22:48:47 2024
+The command was "/Applications/Prover9-Mace4-v05B.app/Contents/Resources/bin-mac-intel/prover9".
+============================== end of head ===========================
+
+============================== end of input ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 1 at 35.13 (+ 0.85) seconds.
+% Length of proof is 64.
+% Level of proof is 15.
+% Maximum clause weight is 15.
+% Given clauses 6672.
+
+2 (all x all y (part(x,y) & part(y,x) -> x = y)) # label(non_clause).  [assumption].
+3 (all x all y all z (part(x,y) & part(y,z) -> part(x,z))) # label(non_clause).  [assumption].
+4 (all x all y (overlaps(x,y) <-> (exists z (part(z,x) & part(z,y))))) # label(non_clause).  [assumption].
+5 (all x all y (ppart(x,y) <-> part(x,y) & x != y)) # label(non_clause).  [assumption].
+6 (all x all y (-part(x,y) -> (exists z (part(z,x) & -overlaps(z,y))))) # label(non_clause).  [assumption].
+8 (all x (atom(x) <-> (all y (part(y,x) -> y = x)))) # label(non_clause).  [assumption].
+9 (all x exists y (atom(y) & part(y,x))) # label(non_clause).  [assumption].
+10 (all x all y (covers(x,y) <-> ppart(y,x) & -(exists z (ppart(y,z) & ppart(z,x))))) # label(non_clause).  [assumption].
+19 (all x all y all z (atom(z) & sum(z,y,x) & -part(z,y) -> ppart(y,x))) # label(non_clause).  [assumption].
+21 (all x all y (-part(x,y) -> (exists a (atom(a) & part(a,x) & -part(a,y))))) # label(non_clause).  [assumption].
+22 (all x all y all z all a (sum(x,y,z) & atom(a) -> (part(a,z) <-> part(a,x) | part(a,y)))) # label(non_clause).  [assumption].
+25 (all x all y all z (atom(z) & sum(z,y,x) & -part(z,y) -> covers(x,y))) # label(non_clause) # label(goal).  [goal].
+27 -part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+28 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+31 overlaps(x,y) | -part(z,x) | -part(z,y).  [clausify(4)].
+32 -ppart(x,y) | part(x,y).  [clausify(5)].
+33 -ppart(x,y) | y != x.  [clausify(5)].
+35 part(x,y) | part(f2(x,y),x).  [clausify(6)].
+36 part(x,y) | -overlaps(f2(x,y),y).  [clausify(6)].
+43 -atom(x) | -part(y,x) | y = x.  [clausify(8)].
+47 part(f5(x),x).  [clausify(9)].
+50 covers(x,y) | -ppart(y,x) | ppart(y,f6(x,y)).  [clausify(10)].
+51 covers(x,y) | -ppart(y,x) | ppart(f6(x,y),x).  [clausify(10)].
+63 -atom(x) | -sum(x,y,z) | part(x,y) | ppart(y,z).  [clausify(19)].
+66 part(x,y) | atom(f10(x,y)).  [clausify(21)].
+67 part(x,y) | part(f10(x,y),x).  [clausify(21)].
+68 part(x,y) | -part(f10(x,y),y).  [clausify(21)].
+69 -sum(x,y,z) | -atom(u) | -part(u,z) | part(u,x) | part(u,y).  [clausify(22)].
+77 atom(c3).  [deny(25)].
+78 sum(c3,c2,c1).  [deny(25)].
+79 -part(c3,c2).  [deny(25)].
+80 -covers(c1,c2).  [deny(25)].
+108 -atom(x) | f2(x,y) = x | part(x,y).  [resolve(43,b,35,b)].
+115 -atom(x) | f5(x) = x.  [resolve(47,a,43,b)].
+120 -part(x,y) | part(f5(x),y).  [resolve(47,a,28,a)].
+163 part(x,y) | overlaps(z,x) | -part(f10(x,y),z).  [resolve(67,b,31,c)].
+166 part(x,y) | -part(x,z) | part(f10(x,y),z).  [resolve(67,b,28,a)].
+196 -atom(x) | -part(x,c1) | part(x,c3) | part(x,c2).  [resolve(78,a,69,a)].
+199 ppart(c2,c1).  [resolve(78,a,63,b),unit_del(a,77),unit_del(b,79)].
+228 ppart(f6(c1,c2),c1).  [resolve(199,a,51,b),unit_del(a,80)].
+229 ppart(c2,f6(c1,c2)).  [resolve(199,a,50,b),unit_del(a,80)].
+422 f6(c1,c2) != c1.  [resolve(228,a,33,a),flip(a)].
+423 part(f6(c1,c2),c1).  [resolve(228,a,32,a)].
+464 f6(c1,c2) != c2.  [resolve(229,a,33,a)].
+465 part(c2,f6(c1,c2)).  [resolve(229,a,32,a)].
+737 -part(c1,f6(c1,c2)).  [resolve(423,a,27,b),unit_del(b,422)].
+746 -part(x,c2) | part(x,f6(c1,c2)).  [resolve(465,a,28,b)].
+748 -part(f6(c1,c2),c2).  [resolve(465,a,27,b),flip(b),unit_del(b,464)].
+1081 f2(c3,x) = c3 | part(c3,x).  [resolve(108,a,77,a)].
+1161 atom(f10(c1,f6(c1,c2))).  [resolve(737,a,66,a)].
+1162 -part(f10(c1,f6(c1,c2)),f6(c1,c2)).  [ur(68,a,737,a)].
+1167 atom(f10(f6(c1,c2),c2)).  [resolve(748,a,66,a)].
+1171 -part(f10(f6(c1,c2),c2),c2).  [ur(68,a,748,a)].
+1612 part(f5(f10(x,y)),x) | part(x,y).  [resolve(120,a,67,b)].
+1891 f5(f10(c1,f6(c1,c2))) = f10(c1,f6(c1,c2)).  [resolve(1161,a,115,a)].
+31072 -part(f10(c1,f6(c1,c2)),c2).  [ur(746,b,1162,a)].
+36066 part(f10(c1,f6(c1,c2)),c1).  [para(1891(a,1),1612(a,1)),unit_del(b,737)].
+36069 part(f10(c1,f6(c1,c2)),c3).  [resolve(36066,a,196,b),unit_del(a,1161),unit_del(c,31072)].
+36089 -part(c3,f6(c1,c2)).  [ur(28,a,36069,a,c,1162,a)].
+36102 f2(c3,f6(c1,c2)) = c3.  [resolve(36089,a,1081,b)].
+36123 -overlaps(c3,f6(c1,c2)).  [ur(36,a,36089,a),rewrite([36102(5)])].
+36134 -part(f10(f6(c1,c2),c2),c3).  [ur(163,a,748,a,b,36123,a)].
+36352 -part(f10(f6(c1,c2),c2),c1).  [ur(196,a,1167,a,c,36134,a,d,1171,a)].
+36501 $F.  [ur(166,a,748,a,c,36352,a),unit_del(a,423)].
+
+============================== end of proof ==========================

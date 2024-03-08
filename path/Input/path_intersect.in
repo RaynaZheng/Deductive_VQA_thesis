@@ -1,0 +1,12 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+% two paths intersect on one element  
+
+(all x all y all z 
+    ((path(x) & path(y) & glb(x,y,z))
+    ->
+    (path(z)))).
+		
+end_of_list.

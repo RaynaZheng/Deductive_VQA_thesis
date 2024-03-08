@@ -1,0 +1,62 @@
+formulas(assumptions).
+
+(plate(o2) & to_the_left_of(o2, o6) & knife(o6) & (o2 != o6)).
+(plate(o2) & to_the_right_of(o2, o4) & forks(o4) & (o2 != o4)).
+(forks(o4) & -C(o4, o6) & knife(o6) & (o4 != o6)).
+
+(all x all y	
+	(to_the_left_of(x,y) 
+	->
+	next_to(x,y))).
+
+(all x all y	
+	(to_the_right_of(x,y) 
+	->
+	next_to(x,y))).
+
+%definition of graph_bet(x,z,y): vertex z is between two vertices x and y 
+(all x all y all z 
+	(graph_bet(x,z,y)
+	<-> 
+	(exists u
+		(mub(x,y,u) & part(z,u) & atom(z) & atom(x) & atom(y))))).
+
+(all x all y	
+	(next_to(x,y) 
+	<->
+	(exists z
+		(atom(x) & atom(y) & (x != y) & sum(x,y,z))))).
+
+(all x all y	
+	(next_to(x,y)
+	-> 
+	next_to(y,x))).
+
+(all x all y
+	((atom(x) & atom(y) & (x != y))
+	->
+	(next_to(x,y)
+	<->
+	EC(x,y)))).
+
+(all x all y all z	
+	((EC(x,z) & EC(z,y) & atom(x) & atom(y) & -C(x,y))
+	->
+	(exists u 
+		(mub(x,y,u) & (x != y) & part(z,u))))).
+
+(all x all y
+	(C(x,y)
+	<->
+	(exists z
+		(sum(x,y,z))))).
+
+
+end_of_list.
+
+formulas(goals).
+
+(exists x exists y exists z
+	(forks(x) & plate(y) & knife(z) & graph_bet(x,y,z))).
+
+end_of_list.

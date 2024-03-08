@@ -1,0 +1,10 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x all y all z all u all v all w
+    ((mub(x,y,z) & ppart(x,w) & ppart(w,z) & mub(u,v,w))
+    ->
+    ((ppart(x,u) & ppart(u,z)) | (ppart(x,v) & ppart(v,z))))).
+		
+end_of_list.

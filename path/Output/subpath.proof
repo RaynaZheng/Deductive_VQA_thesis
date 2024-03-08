@@ -1,0 +1,653 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 75704 was started by raynazheng on Raynas-MacBook-Air.local,
+Tue Jan 23 16:33:06 2024
+The command was "bin/prover9 -f /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/cisco_mt.in /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/subpath.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/cisco_mt.in
+
+
+formulas(assumptions).
+(all x part(x,x)).
+(all x all y (part(x,y) & part(y,x) -> x = y)).
+(all x all y all z (part(x,y) & part(y,z) -> part(x,z))).
+(all x all y (overlaps(x,y) <-> (exists z (part(z,x) & part(z,y))))).
+(all x all y (-part(x,y) -> (exists z (part(z,x) & -overlaps(z,y))))).
+(all x all y (ppart(x,y) <-> part(x,y) & x != y)).
+(all x all y all z (sum(x,y,z) <-> (all v (overlaps(v,z) <-> overlaps(v,x) | overlaps(v,y))))).
+(all x (atom(x) <-> (all y (part(y,x) -> y = x)))).
+(all x (atom(x) | (exists y (y != x & ppart(y,x))))).
+(all x (top(x) <-> (all y part(y,x)))).
+(all x C(x,x)).
+(all x all y (C(x,y) -> C(y,x))).
+(all x all y all z (C(x,y) & part(y,z) -> C(x,z))).
+(all x all y (C(x,y) <-> (exists z sum(x,y,z)))).
+(all x all y all z (sum(x,y,z) -> (all v (C(v,z) <-> C(v,x) | C(v,y))))).
+(all x all y all z (sum(x,y,z) -> part(x,z) & part(y,z))).
+(exists x top(x)).
+(all x all y exists z (part(x,z) & part(y,z))).
+(all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))).
+(all x mub(x,x,x)).
+(all x all y all z (mub(x,y,z) -> mub(y,x,z))).
+(all x all y all z (mub(x,y,z) -> part(x,z))).
+(all x all y all z (part(x,y) <-> mub(x,y,y))).
+(all x all y all z all u (mub(x,y,z) & mub(x,y,u) & part(z,u) -> z = u)).
+(all x all y all z all u all w (mub(x,y,z) & part(x,u) & part(u,z) -> mub(u,y,z))).
+(all x (path(x) <-> (exists y exists z (mub(y,z,x) & atom(y) & atom(z))))).
+(all x exists y exists z (atom(y) & sum(y,z,x))).
+(all x exists y (atom(x) & ppart(x,y))).
+end_of_list.
+
+% Reading from file /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/subpath.in
+
+
+formulas(assumptions).
+end_of_list.
+
+formulas(goals).
+(all x all y (path(x) & part(y,x) -> path(y))).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x part(x,x)) # label(non_clause).  [assumption].
+2 (all x all y (part(x,y) & part(y,x) -> x = y)) # label(non_clause).  [assumption].
+3 (all x all y all z (part(x,y) & part(y,z) -> part(x,z))) # label(non_clause).  [assumption].
+4 (all x all y (overlaps(x,y) <-> (exists z (part(z,x) & part(z,y))))) # label(non_clause).  [assumption].
+5 (all x all y (-part(x,y) -> (exists z (part(z,x) & -overlaps(z,y))))) # label(non_clause).  [assumption].
+6 (all x all y (ppart(x,y) <-> part(x,y) & x != y)) # label(non_clause).  [assumption].
+7 (all x all y all z (sum(x,y,z) <-> (all v (overlaps(v,z) <-> overlaps(v,x) | overlaps(v,y))))) # label(non_clause).  [assumption].
+8 (all x (atom(x) <-> (all y (part(y,x) -> y = x)))) # label(non_clause).  [assumption].
+9 (all x (atom(x) | (exists y (y != x & ppart(y,x))))) # label(non_clause).  [assumption].
+10 (all x (top(x) <-> (all y part(y,x)))) # label(non_clause).  [assumption].
+11 (all x C(x,x)) # label(non_clause).  [assumption].
+12 (all x all y (C(x,y) -> C(y,x))) # label(non_clause).  [assumption].
+13 (all x all y all z (C(x,y) & part(y,z) -> C(x,z))) # label(non_clause).  [assumption].
+14 (all x all y (C(x,y) <-> (exists z sum(x,y,z)))) # label(non_clause).  [assumption].
+15 (all x all y all z (sum(x,y,z) -> (all v (C(v,z) <-> C(v,x) | C(v,y))))) # label(non_clause).  [assumption].
+16 (all x all y all z (sum(x,y,z) -> part(x,z) & part(y,z))) # label(non_clause).  [assumption].
+17 (exists x top(x)) # label(non_clause).  [assumption].
+18 (all x all y exists z (part(x,z) & part(y,z))) # label(non_clause).  [assumption].
+19 (all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))) # label(non_clause).  [assumption].
+20 (all x mub(x,x,x)) # label(non_clause).  [assumption].
+21 (all x all y all z (mub(x,y,z) -> mub(y,x,z))) # label(non_clause).  [assumption].
+22 (all x all y all z (mub(x,y,z) -> part(x,z))) # label(non_clause).  [assumption].
+23 (all x all y all z (part(x,y) <-> mub(x,y,y))) # label(non_clause).  [assumption].
+24 (all x all y all z all u (mub(x,y,z) & mub(x,y,u) & part(z,u) -> z = u)) # label(non_clause).  [assumption].
+25 (all x all y all z all u all w (mub(x,y,z) & part(x,u) & part(u,z) -> mub(u,y,z))) # label(non_clause).  [assumption].
+26 (all x (path(x) <-> (exists y exists z (mub(y,z,x) & atom(y) & atom(z))))) # label(non_clause).  [assumption].
+27 (all x exists y exists z (atom(y) & sum(y,z,x))) # label(non_clause).  [assumption].
+28 (all x exists y (atom(x) & ppart(x,y))) # label(non_clause).  [assumption].
+29 (all x all y (path(x) & part(y,x) -> path(y))) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+part(x,x).  [clausify(1)].
+-part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+-part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+-overlaps(x,y) | part(f1(x,y),x).  [clausify(4)].
+-overlaps(x,y) | part(f1(x,y),y).  [clausify(4)].
+overlaps(x,y) | -part(z,x) | -part(z,y).  [clausify(4)].
+part(x,y) | part(f2(x,y),x).  [clausify(5)].
+part(x,y) | -overlaps(f2(x,y),y).  [clausify(5)].
+-ppart(x,y) | part(x,y).  [clausify(6)].
+-ppart(x,y) | y != x.  [clausify(6)].
+ppart(x,y) | -part(x,y) | y = x.  [clausify(6)].
+-sum(x,y,z) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [clausify(7)].
+-sum(x,y,z) | overlaps(u,z) | -overlaps(u,x).  [clausify(7)].
+-sum(x,y,z) | overlaps(u,z) | -overlaps(u,y).  [clausify(7)].
+sum(x,y,z) | overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y).  [clausify(7)].
+sum(x,y,z) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x).  [clausify(7)].
+sum(x,y,z) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y).  [clausify(7)].
+-atom(x) | -part(y,x) | y = x.  [clausify(8)].
+atom(x) | part(f4(x),x).  [clausify(8)].
+atom(x) | f4(x) != x.  [clausify(8)].
+atom(x) | f5(x) != x.  [clausify(9)].
+atom(x) | ppart(f5(x),x).  [clausify(9)].
+-top(x) | part(y,x).  [clausify(10)].
+top(x) | -part(f6(x),x).  [clausify(10)].
+C(x,x).  [clausify(11)].
+-C(x,y) | C(y,x).  [clausify(12)].
+-C(x,y) | -part(y,z) | C(x,z).  [clausify(13)].
+-C(x,y) | sum(x,y,f7(x,y)).  [clausify(14)].
+C(x,y) | -sum(x,y,z).  [clausify(14)].
+-sum(x,y,z) | -C(u,z) | C(u,x) | C(u,y).  [clausify(15)].
+-sum(x,y,z) | C(u,z) | -C(u,x).  [clausify(15)].
+-sum(x,y,z) | C(u,z) | -C(u,y).  [clausify(15)].
+-sum(x,y,z) | part(x,z).  [clausify(16)].
+-sum(x,y,z) | part(y,z).  [clausify(16)].
+top(c1).  [clausify(17)].
+part(x,f8(x,y)).  [clausify(18)].
+part(x,f8(y,x)).  [clausify(18)].
+-mub(x,y,z) | part(x,z).  [clausify(19)].
+-mub(x,y,z) | part(y,z).  [clausify(19)].
+-mub(x,y,z) | -part(x,u) | -part(y,u) | -ppart(u,z).  [clausify(19)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f9(x,y,z)).  [clausify(19)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f9(x,y,z)).  [clausify(19)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | ppart(f9(x,y,z),z).  [clausify(19)].
+mub(x,x,x).  [clausify(20)].
+-mub(x,y,z) | mub(y,x,z).  [clausify(21)].
+-mub(x,y,z) | part(x,z).  [clausify(22)].
+-part(x,y) | mub(x,y,y).  [clausify(23)].
+part(x,y) | -mub(x,y,y).  [clausify(23)].
+-mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(24)].
+-mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(25)].
+-path(x) | mub(f10(x),f11(x),x).  [clausify(26)].
+-path(x) | atom(f10(x)).  [clausify(26)].
+-path(x) | atom(f11(x)).  [clausify(26)].
+path(x) | -mub(y,z,x) | -atom(y) | -atom(z).  [clausify(26)].
+atom(f12(x)).  [clausify(27)].
+sum(f12(x),f13(x),x).  [clausify(27)].
+atom(x).  [clausify(28)].
+ppart(x,f14(x)).  [clausify(28)].
+path(c2).  [deny(29)].
+part(c3,c2).  [deny(29)].
+-path(c3).  [deny(29)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating ppart/2
+30 ppart(x,y) | -part(x,y) | y = x.  [clausify(6)].
+31 -ppart(x,y) | part(x,y).  [clausify(6)].
+32 -ppart(x,y) | y != x.  [clausify(6)].
+33 atom(x) | ppart(f5(x),x).  [clausify(9)].
+34 -mub(x,y,z) | -part(x,u) | -part(y,u) | -ppart(u,z).  [clausify(19)].
+Derived: -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(34,d,30,a)].
+35 mub(x,y,z) | -part(x,z) | -part(y,z) | ppart(f9(x,y,z),z).  [clausify(19)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | part(f9(x,y,z),z).  [resolve(35,d,31,a)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | z != f9(x,y,z).  [resolve(35,d,32,a)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f9(x,y,z)) | -part(w,f9(x,y,z)).  [resolve(35,d,34,d)].
+36 ppart(x,f14(x)).  [clausify(28)].
+Derived: part(x,f14(x)).  [resolve(36,a,31,a)].
+Derived: f14(x) != x.  [resolve(36,a,32,a)].
+Derived: -mub(x,y,f14(z)) | -part(x,z) | -part(y,z).  [resolve(36,a,34,d)].
+
+Eliminating sum/3
+37 sum(x,y,z) | overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y).  [clausify(7)].
+38 -sum(x,y,z) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [clausify(7)].
+39 -sum(x,y,z) | overlaps(u,z) | -overlaps(u,x).  [clausify(7)].
+40 -sum(x,y,z) | overlaps(u,z) | -overlaps(u,y).  [clausify(7)].
+Derived: overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(37,a,38,a)].
+Derived: overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(37,a,39,a)].
+Derived: overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(37,a,40,a)].
+41 sum(x,y,z) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x).  [clausify(7)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(41,a,38,a)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,x).  [resolve(41,a,39,a)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,y).  [resolve(41,a,40,a)].
+42 sum(x,y,z) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y).  [clausify(7)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(42,a,38,a)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(42,a,39,a)].
+Derived: -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(42,a,40,a)].
+43 -C(x,y) | sum(x,y,f7(x,y)).  [clausify(14)].
+Derived: -C(x,y) | -overlaps(z,f7(x,y)) | overlaps(z,x) | overlaps(z,y).  [resolve(43,b,38,a)].
+Derived: -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,x).  [resolve(43,b,39,a)].
+Derived: -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,y).  [resolve(43,b,40,a)].
+44 C(x,y) | -sum(x,y,z).  [clausify(14)].
+Derived: C(x,y) | overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y).  [resolve(44,b,37,a)].
+Derived: C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x).  [resolve(44,b,41,a)].
+Derived: C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y).  [resolve(44,b,42,a)].
+45 -sum(x,y,z) | -C(u,z) | C(u,x) | C(u,y).  [clausify(15)].
+Derived: -C(x,y) | C(x,z) | C(x,u) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(45,a,37,a)].
+Derived: -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(45,a,41,a)].
+Derived: -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(45,a,42,a)].
+Derived: -C(x,f7(y,z)) | C(x,y) | C(x,z) | -C(y,z).  [resolve(45,a,43,b)].
+46 -sum(x,y,z) | C(u,z) | -C(u,x).  [clausify(15)].
+Derived: C(x,y) | -C(x,z) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(46,a,37,a)].
+Derived: C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(46,a,41,a)].
+Derived: C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(46,a,42,a)].
+Derived: C(x,f7(y,z)) | -C(x,y) | -C(y,z).  [resolve(46,a,43,b)].
+47 -sum(x,y,z) | C(u,z) | -C(u,y).  [clausify(15)].
+Derived: C(x,y) | -C(x,z) | overlaps(f3(u,z,y),y) | overlaps(f3(u,z,y),u) | overlaps(f3(u,z,y),z).  [resolve(47,a,37,a)].
+Derived: C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),u).  [resolve(47,a,41,a)].
+Derived: C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),z).  [resolve(47,a,42,a)].
+Derived: C(x,f7(y,z)) | -C(x,z) | -C(y,z).  [resolve(47,a,43,b)].
+48 -sum(x,y,z) | part(x,z).  [clausify(16)].
+Derived: part(x,y) | overlaps(f3(x,z,y),y) | overlaps(f3(x,z,y),x) | overlaps(f3(x,z,y),z).  [resolve(48,a,37,a)].
+Derived: part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),x).  [resolve(48,a,41,a)].
+Derived: part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),z).  [resolve(48,a,42,a)].
+Derived: part(x,f7(x,y)) | -C(x,y).  [resolve(48,a,43,b)].
+49 -sum(x,y,z) | part(y,z).  [clausify(16)].
+Derived: part(x,y) | overlaps(f3(z,x,y),y) | overlaps(f3(z,x,y),z) | overlaps(f3(z,x,y),x).  [resolve(49,a,37,a)].
+Derived: part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),z).  [resolve(49,a,41,a)].
+Derived: part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),x).  [resolve(49,a,42,a)].
+Derived: part(x,f7(y,x)) | -C(y,x).  [resolve(49,a,43,b)].
+50 sum(f12(x),f13(x),x).  [clausify(27)].
+Derived: -overlaps(x,y) | overlaps(x,f12(y)) | overlaps(x,f13(y)).  [resolve(50,a,38,a)].
+Derived: overlaps(x,y) | -overlaps(x,f12(y)).  [resolve(50,a,39,a)].
+Derived: overlaps(x,y) | -overlaps(x,f13(y)).  [resolve(50,a,40,a)].
+Derived: C(f12(x),f13(x)).  [resolve(50,a,44,b)].
+Derived: -C(x,y) | C(x,f12(y)) | C(x,f13(y)).  [resolve(50,a,45,a)].
+Derived: C(x,y) | -C(x,f12(y)).  [resolve(50,a,46,a)].
+Derived: C(x,y) | -C(x,f13(y)).  [resolve(50,a,47,a)].
+Derived: part(f12(x),x).  [resolve(50,a,48,a)].
+Derived: part(f13(x),x).  [resolve(50,a,49,a)].
+
+Eliminating top/1
+51 top(x) | -part(f6(x),x).  [clausify(10)].
+52 -top(x) | part(y,x).  [clausify(10)].
+Derived: -part(f6(x),x) | part(y,x).  [resolve(51,a,52,a)].
+53 top(c1).  [clausify(17)].
+Derived: part(x,c1).  [resolve(53,a,52,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ =, atom, path, overlaps, part, C, mub ]).
+Function symbol precedence:  function_order([ c1, c2, c3, f1, f2, f7, f8, f4, f5, f6, f10, f11, f12, f13, f14, f3, f9 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      54 part(x,x).  [clausify(1)].
+kept:      55 -part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+kept:      56 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+kept:      57 -overlaps(x,y) | part(f1(x,y),x).  [clausify(4)].
+kept:      58 -overlaps(x,y) | part(f1(x,y),y).  [clausify(4)].
+kept:      59 overlaps(x,y) | -part(z,x) | -part(z,y).  [clausify(4)].
+kept:      60 part(x,y) | part(f2(x,y),x).  [clausify(5)].
+kept:      61 part(x,y) | -overlaps(f2(x,y),y).  [clausify(5)].
+kept:      62 -atom(x) | -part(y,x) | y = x.  [clausify(8)].
+kept:      63 atom(x) | part(f4(x),x).  [clausify(8)].
+kept:      64 atom(x) | f4(x) != x.  [clausify(8)].
+kept:      65 atom(x) | f5(x) != x.  [clausify(9)].
+kept:      66 C(x,x).  [clausify(11)].
+kept:      67 -C(x,y) | C(y,x).  [clausify(12)].
+kept:      68 -C(x,y) | -part(y,z) | C(x,z).  [clausify(13)].
+kept:      69 part(x,f8(x,y)).  [clausify(18)].
+kept:      70 part(x,f8(y,x)).  [clausify(18)].
+kept:      71 -mub(x,y,z) | part(x,z).  [clausify(19)].
+kept:      72 -mub(x,y,z) | part(y,z).  [clausify(19)].
+kept:      73 mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f9(x,y,z)).  [clausify(19)].
+kept:      74 mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f9(x,y,z)).  [clausify(19)].
+kept:      75 mub(x,x,x).  [clausify(20)].
+kept:      76 -mub(x,y,z) | mub(y,x,z).  [clausify(21)].
+kept:      77 -part(x,y) | mub(x,y,y).  [clausify(23)].
+kept:      78 -mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(24)].
+kept:      79 -mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(25)].
+kept:      80 -path(x) | mub(f10(x),f11(x),x).  [clausify(26)].
+kept:      81 -path(x) | atom(f10(x)).  [clausify(26)].
+kept:      82 -path(x) | atom(f11(x)).  [clausify(26)].
+kept:      83 path(x) | -mub(y,z,x) | -atom(y) | -atom(z).  [clausify(26)].
+kept:      84 atom(f12(x)).  [clausify(27)].
+kept:      85 atom(x).  [clausify(28)].
+kept:      86 path(c2).  [deny(29)].
+kept:      87 part(c3,c2).  [deny(29)].
+kept:      88 -path(c3).  [deny(29)].
+kept:      89 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(34,d,30,a)].
+kept:      90 mub(x,y,z) | -part(x,z) | -part(y,z) | part(f9(x,y,z),z).  [resolve(35,d,31,a)].
+           91 mub(x,y,z) | -part(x,z) | -part(y,z) | z != f9(x,y,z).  [resolve(35,d,32,a)].
+kept:      92 mub(x,y,z) | -part(x,z) | -part(y,z) | f9(x,y,z) != z.  [copy(91),flip(d)].
+kept:      93 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f9(x,y,z)) | -part(w,f9(x,y,z)).  [resolve(35,d,34,d)].
+kept:      94 part(x,f14(x)).  [resolve(36,a,31,a)].
+kept:      95 f14(x) != x.  [resolve(36,a,32,a)].
+kept:      96 -mub(x,y,f14(z)) | -part(x,z) | -part(y,z).  [resolve(36,a,34,d)].
+kept:      97 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(37,a,38,a)].
+kept:      98 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(37,a,39,a)].
+kept:      99 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(37,a,40,a)].
+kept:      100 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(41,a,38,a)].
+kept:      101 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,x).  [resolve(41,a,39,a)].
+kept:      102 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,y).  [resolve(41,a,40,a)].
+kept:      103 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(42,a,38,a)].
+kept:      104 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(42,a,39,a)].
+kept:      105 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(42,a,40,a)].
+kept:      106 -C(x,y) | -overlaps(z,f7(x,y)) | overlaps(z,x) | overlaps(z,y).  [resolve(43,b,38,a)].
+kept:      107 -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,x).  [resolve(43,b,39,a)].
+kept:      108 -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,y).  [resolve(43,b,40,a)].
+kept:      109 C(x,y) | overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y).  [resolve(44,b,37,a)].
+kept:      110 C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x).  [resolve(44,b,41,a)].
+kept:      111 C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y).  [resolve(44,b,42,a)].
+kept:      112 -C(x,y) | C(x,z) | C(x,u) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(45,a,37,a)].
+kept:      113 -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(45,a,41,a)].
+kept:      114 -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(45,a,42,a)].
+kept:      115 -C(x,f7(y,z)) | C(x,y) | C(x,z) | -C(y,z).  [resolve(45,a,43,b)].
+kept:      116 C(x,y) | -C(x,z) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(46,a,37,a)].
+kept:      117 C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(46,a,41,a)].
+kept:      118 C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(46,a,42,a)].
+kept:      119 C(x,f7(y,z)) | -C(x,y) | -C(y,z).  [resolve(46,a,43,b)].
+kept:      120 C(x,y) | -C(x,z) | overlaps(f3(u,z,y),y) | overlaps(f3(u,z,y),u) | overlaps(f3(u,z,y),z).  [resolve(47,a,37,a)].
+kept:      121 C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),u).  [resolve(47,a,41,a)].
+kept:      122 C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),z).  [resolve(47,a,42,a)].
+kept:      123 C(x,f7(y,z)) | -C(x,z) | -C(y,z).  [resolve(47,a,43,b)].
+kept:      124 part(x,y) | overlaps(f3(x,z,y),y) | overlaps(f3(x,z,y),x) | overlaps(f3(x,z,y),z).  [resolve(48,a,37,a)].
+kept:      125 part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),x).  [resolve(48,a,41,a)].
+kept:      126 part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),z).  [resolve(48,a,42,a)].
+kept:      127 part(x,f7(x,y)) | -C(x,y).  [resolve(48,a,43,b)].
+kept:      128 part(x,y) | overlaps(f3(z,x,y),y) | overlaps(f3(z,x,y),z) | overlaps(f3(z,x,y),x).  [resolve(49,a,37,a)].
+kept:      129 part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),z).  [resolve(49,a,41,a)].
+kept:      130 part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),x).  [resolve(49,a,42,a)].
+kept:      131 part(x,f7(y,x)) | -C(y,x).  [resolve(49,a,43,b)].
+kept:      132 -overlaps(x,y) | overlaps(x,f12(y)) | overlaps(x,f13(y)).  [resolve(50,a,38,a)].
+kept:      133 overlaps(x,y) | -overlaps(x,f12(y)).  [resolve(50,a,39,a)].
+kept:      134 overlaps(x,y) | -overlaps(x,f13(y)).  [resolve(50,a,40,a)].
+kept:      135 C(f12(x),f13(x)).  [resolve(50,a,44,b)].
+kept:      136 -C(x,y) | C(x,f12(y)) | C(x,f13(y)).  [resolve(50,a,45,a)].
+kept:      137 C(x,y) | -C(x,f12(y)).  [resolve(50,a,46,a)].
+kept:      138 C(x,y) | -C(x,f13(y)).  [resolve(50,a,47,a)].
+kept:      139 part(f12(x),x).  [resolve(50,a,48,a)].
+kept:      140 part(f13(x),x).  [resolve(50,a,49,a)].
+kept:      141 -part(f6(x),x) | part(y,x).  [resolve(51,a,52,a)].
+kept:      142 part(x,c1).  [resolve(53,a,52,a)].
+kept:      143 overlaps(x,x) | -part(y,x).  [factor(59,b,c)].
+kept:      144 mub(x,x,y) | -part(x,y) | part(x,f9(x,x,y)).  [factor(73,b,c)].
+kept:      145 path(x) | -mub(y,y,x).  [factor(83,c,d),unit_del(c,85)].
+kept:      146 path(x) | -mub(y,z,x).  [back_unit_del(83),unit_del(c,85),unit_del(d,85)].
+kept:      147 -part(x,y) | x = y.  [back_unit_del(62),unit_del(a,85)].
+kept:      148 -mub(x,x,y) | -part(x,z) | -part(z,y) | y = z.  [factor(89,b,c)].
+kept:      149 mub(x,x,y) | -part(x,y) | part(f9(x,x,y),y).  [factor(90,b,c)].
+kept:      150 mub(x,x,y) | -part(x,y) | f9(x,x,y) != y.  [factor(92,b,c)].
+kept:      151 mub(x,x,y) | -part(x,y) | -mub(z,u,y) | -part(z,f9(x,x,y)) | -part(u,f9(x,x,y)).  [factor(93,b,c)].
+kept:      152 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,u,z) | -part(u,f9(x,y,z)).  [factor(93,e,f)].
+kept:      153 -mub(x,x,f14(y)) | -part(x,y).  [factor(96,b,c)].
+kept:      154 overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x) | -overlaps(z,y) | overlaps(z,x).  [factor(97,b,c),merge(e)].
+kept:      155 overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x) | overlaps(z,y) | -overlaps(z,x).  [factor(98,a,c)].
+kept:      156 overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x) | overlaps(z,y) | -overlaps(z,x).  [factor(98,b,c)].
+kept:      157 overlaps(f3(x,y,x),x) | overlaps(f3(x,y,x),y) | overlaps(z,x) | -overlaps(z,y).  [factor(99,a,b)].
+kept:      158 -overlaps(f3(x,x,y),y) | -overlaps(f3(x,x,y),x) | -overlaps(z,y) | overlaps(z,x).  [factor(100,d,e)].
+kept:      159 -overlaps(f3(x,y,x),x) | overlaps(z,x) | -overlaps(z,y).  [factor(102,a,b)].
+kept:      160 -overlaps(f3(x,y,y),y) | overlaps(z,y) | -overlaps(z,x).  [factor(104,a,b)].
+kept:      161 -overlaps(x,f7(y,y)) | overlaps(x,y).  [factor(106,c,d),unit_del(a,66)].
+kept:      162 C(x,y) | overlaps(f3(x,y,x),x) | overlaps(f3(x,y,x),y).  [factor(109,b,c)].
+kept:      163 C(x,y) | overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x).  [factor(109,b,d)].
+kept:      164 C(x,y) | -overlaps(f3(x,y,x),x).  [factor(110,b,c)].
+kept:      165 C(x,y) | -overlaps(f3(x,y,y),y).  [factor(111,b,c)].
+kept:      166 -C(x,y) | C(x,z) | overlaps(f3(z,z,y),y) | overlaps(f3(z,z,y),z).  [factor(112,b,c),merge(e)].
+kept:      167 -C(x,y) | C(x,z) | -overlaps(f3(z,z,y),y) | -overlaps(f3(z,z,y),z).  [factor(113,b,c)].
+kept:      168 -C(x,f7(y,y)) | C(x,y).  [factor(115,b,c),unit_del(c,66)].
+kept:      169 C(x,y) | -C(x,z) | overlaps(f3(z,y,y),y) | overlaps(f3(z,y,y),z).  [factor(116,c,e)].
+kept:      170 C(x,y) | -C(x,z) | overlaps(f3(z,z,y),y) | overlaps(f3(z,z,y),z).  [factor(116,d,e)].
+kept:      171 C(x,y) | -C(x,z) | -overlaps(f3(z,y,y),y).  [factor(118,c,d)].
+kept:      172 C(x,f7(x,x)).  [factor(119,b,c),unit_del(b,66)].
+kept:      173 C(x,y) | -C(x,z) | overlaps(f3(y,z,y),y) | overlaps(f3(y,z,y),z).  [factor(120,c,d)].
+kept:      174 C(x,y) | -C(x,z) | -overlaps(f3(y,z,y),y).  [factor(121,c,d)].
+kept:      175 C(x,f7(x,y)) | -C(x,y).  [factor(123,b,c)].
+kept:      176 part(x,y) | overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x).  [factor(124,b,d)].
+kept:      177 part(x,y) | overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x).  [factor(124,c,d)].
+kept:      178 part(x,y) | -overlaps(f3(x,y,y),y).  [factor(126,b,c)].
+kept:      179 part(x,y) | overlaps(f3(y,x,y),y) | overlaps(f3(y,x,y),x).  [factor(128,b,c)].
+kept:      180 part(x,y) | -overlaps(f3(y,x,y),y).  [factor(129,b,c)].
+kept:      181 mub(x,x,y) | -part(x,y) | -mub(z,z,y) | -part(z,f9(x,x,y)).  [factor(151,d,e)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+54 part(x,x).  [clausify(1)].
+56 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+57 -overlaps(x,y) | part(f1(x,y),x).  [clausify(4)].
+58 -overlaps(x,y) | part(f1(x,y),y).  [clausify(4)].
+59 overlaps(x,y) | -part(z,x) | -part(z,y).  [clausify(4)].
+60 part(x,y) | part(f2(x,y),x).  [clausify(5)].
+61 part(x,y) | -overlaps(f2(x,y),y).  [clausify(5)].
+66 C(x,x).  [clausify(11)].
+67 -C(x,y) | C(y,x).  [clausify(12)].
+68 -C(x,y) | -part(y,z) | C(x,z).  [clausify(13)].
+69 part(x,f8(x,y)).  [clausify(18)].
+70 part(x,f8(y,x)).  [clausify(18)].
+71 -mub(x,y,z) | part(x,z).  [clausify(19)].
+72 -mub(x,y,z) | part(y,z).  [clausify(19)].
+73 mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f9(x,y,z)).  [clausify(19)].
+74 mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f9(x,y,z)).  [clausify(19)].
+75 mub(x,x,x).  [clausify(20)].
+76 -mub(x,y,z) | mub(y,x,z).  [clausify(21)].
+77 -part(x,y) | mub(x,y,y).  [clausify(23)].
+78 -mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(24)].
+79 -mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(25)].
+80 -path(x) | mub(f10(x),f11(x),x).  [clausify(26)].
+85 atom(x).  [clausify(28)].
+86 path(c2).  [deny(29)].
+87 part(c3,c2).  [deny(29)].
+88 -path(c3).  [deny(29)].
+89 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(34,d,30,a)].
+90 mub(x,y,z) | -part(x,z) | -part(y,z) | part(f9(x,y,z),z).  [resolve(35,d,31,a)].
+92 mub(x,y,z) | -part(x,z) | -part(y,z) | f9(x,y,z) != z.  [copy(91),flip(d)].
+93 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f9(x,y,z)) | -part(w,f9(x,y,z)).  [resolve(35,d,34,d)].
+94 part(x,f14(x)).  [resolve(36,a,31,a)].
+95 f14(x) != x.  [resolve(36,a,32,a)].
+96 -mub(x,y,f14(z)) | -part(x,z) | -part(y,z).  [resolve(36,a,34,d)].
+97 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(37,a,38,a)].
+98 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(37,a,39,a)].
+99 overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(37,a,40,a)].
+100 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(41,a,38,a)].
+101 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,x).  [resolve(41,a,39,a)].
+102 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x) | overlaps(u,z) | -overlaps(u,y).  [resolve(41,a,40,a)].
+103 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | -overlaps(u,z) | overlaps(u,x) | overlaps(u,y).  [resolve(42,a,38,a)].
+104 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,x).  [resolve(42,a,39,a)].
+105 -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y) | overlaps(u,z) | -overlaps(u,y).  [resolve(42,a,40,a)].
+106 -C(x,y) | -overlaps(z,f7(x,y)) | overlaps(z,x) | overlaps(z,y).  [resolve(43,b,38,a)].
+107 -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,x).  [resolve(43,b,39,a)].
+108 -C(x,y) | overlaps(z,f7(x,y)) | -overlaps(z,y).  [resolve(43,b,40,a)].
+109 C(x,y) | overlaps(f3(x,y,z),z) | overlaps(f3(x,y,z),x) | overlaps(f3(x,y,z),y).  [resolve(44,b,37,a)].
+110 C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),x).  [resolve(44,b,41,a)].
+111 C(x,y) | -overlaps(f3(x,y,z),z) | -overlaps(f3(x,y,z),y).  [resolve(44,b,42,a)].
+112 -C(x,y) | C(x,z) | C(x,u) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(45,a,37,a)].
+113 -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(45,a,41,a)].
+114 -C(x,y) | C(x,z) | C(x,u) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(45,a,42,a)].
+115 -C(x,f7(y,z)) | C(x,y) | C(x,z) | -C(y,z).  [resolve(45,a,43,b)].
+116 C(x,y) | -C(x,z) | overlaps(f3(z,u,y),y) | overlaps(f3(z,u,y),z) | overlaps(f3(z,u,y),u).  [resolve(46,a,37,a)].
+117 C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),z).  [resolve(46,a,41,a)].
+118 C(x,y) | -C(x,z) | -overlaps(f3(z,u,y),y) | -overlaps(f3(z,u,y),u).  [resolve(46,a,42,a)].
+119 C(x,f7(y,z)) | -C(x,y) | -C(y,z).  [resolve(46,a,43,b)].
+120 C(x,y) | -C(x,z) | overlaps(f3(u,z,y),y) | overlaps(f3(u,z,y),u) | overlaps(f3(u,z,y),z).  [resolve(47,a,37,a)].
+121 C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),u).  [resolve(47,a,41,a)].
+122 C(x,y) | -C(x,z) | -overlaps(f3(u,z,y),y) | -overlaps(f3(u,z,y),z).  [resolve(47,a,42,a)].
+123 C(x,f7(y,z)) | -C(x,z) | -C(y,z).  [resolve(47,a,43,b)].
+124 part(x,y) | overlaps(f3(x,z,y),y) | overlaps(f3(x,z,y),x) | overlaps(f3(x,z,y),z).  [resolve(48,a,37,a)].
+125 part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),x).  [resolve(48,a,41,a)].
+126 part(x,y) | -overlaps(f3(x,z,y),y) | -overlaps(f3(x,z,y),z).  [resolve(48,a,42,a)].
+127 part(x,f7(x,y)) | -C(x,y).  [resolve(48,a,43,b)].
+128 part(x,y) | overlaps(f3(z,x,y),y) | overlaps(f3(z,x,y),z) | overlaps(f3(z,x,y),x).  [resolve(49,a,37,a)].
+129 part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),z).  [resolve(49,a,41,a)].
+130 part(x,y) | -overlaps(f3(z,x,y),y) | -overlaps(f3(z,x,y),x).  [resolve(49,a,42,a)].
+131 part(x,f7(y,x)) | -C(y,x).  [resolve(49,a,43,b)].
+132 -overlaps(x,y) | overlaps(x,f12(y)) | overlaps(x,f13(y)).  [resolve(50,a,38,a)].
+133 overlaps(x,y) | -overlaps(x,f12(y)).  [resolve(50,a,39,a)].
+134 overlaps(x,y) | -overlaps(x,f13(y)).  [resolve(50,a,40,a)].
+135 C(f12(x),f13(x)).  [resolve(50,a,44,b)].
+136 -C(x,y) | C(x,f12(y)) | C(x,f13(y)).  [resolve(50,a,45,a)].
+137 C(x,y) | -C(x,f12(y)).  [resolve(50,a,46,a)].
+138 C(x,y) | -C(x,f13(y)).  [resolve(50,a,47,a)].
+139 part(f12(x),x).  [resolve(50,a,48,a)].
+140 part(f13(x),x).  [resolve(50,a,49,a)].
+141 -part(f6(x),x) | part(y,x).  [resolve(51,a,52,a)].
+142 part(x,c1).  [resolve(53,a,52,a)].
+143 overlaps(x,x) | -part(y,x).  [factor(59,b,c)].
+144 mub(x,x,y) | -part(x,y) | part(x,f9(x,x,y)).  [factor(73,b,c)].
+146 path(x) | -mub(y,z,x).  [back_unit_del(83),unit_del(c,85),unit_del(d,85)].
+147 -part(x,y) | x = y.  [back_unit_del(62),unit_del(a,85)].
+148 -mub(x,x,y) | -part(x,z) | -part(z,y) | y = z.  [factor(89,b,c)].
+149 mub(x,x,y) | -part(x,y) | part(f9(x,x,y),y).  [factor(90,b,c)].
+150 mub(x,x,y) | -part(x,y) | f9(x,x,y) != y.  [factor(92,b,c)].
+151 mub(x,x,y) | -part(x,y) | -mub(z,u,y) | -part(z,f9(x,x,y)) | -part(u,f9(x,x,y)).  [factor(93,b,c)].
+152 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,u,z) | -part(u,f9(x,y,z)).  [factor(93,e,f)].
+153 -mub(x,x,f14(y)) | -part(x,y).  [factor(96,b,c)].
+154 overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x) | -overlaps(z,y) | overlaps(z,x).  [factor(97,b,c),merge(e)].
+155 overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x) | overlaps(z,y) | -overlaps(z,x).  [factor(98,a,c)].
+156 overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x) | overlaps(z,y) | -overlaps(z,x).  [factor(98,b,c)].
+157 overlaps(f3(x,y,x),x) | overlaps(f3(x,y,x),y) | overlaps(z,x) | -overlaps(z,y).  [factor(99,a,b)].
+158 -overlaps(f3(x,x,y),y) | -overlaps(f3(x,x,y),x) | -overlaps(z,y) | overlaps(z,x).  [factor(100,d,e)].
+159 -overlaps(f3(x,y,x),x) | overlaps(z,x) | -overlaps(z,y).  [factor(102,a,b)].
+160 -overlaps(f3(x,y,y),y) | overlaps(z,y) | -overlaps(z,x).  [factor(104,a,b)].
+161 -overlaps(x,f7(y,y)) | overlaps(x,y).  [factor(106,c,d),unit_del(a,66)].
+162 C(x,y) | overlaps(f3(x,y,x),x) | overlaps(f3(x,y,x),y).  [factor(109,b,c)].
+163 C(x,y) | overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x).  [factor(109,b,d)].
+164 C(x,y) | -overlaps(f3(x,y,x),x).  [factor(110,b,c)].
+165 C(x,y) | -overlaps(f3(x,y,y),y).  [factor(111,b,c)].
+166 -C(x,y) | C(x,z) | overlaps(f3(z,z,y),y) | overlaps(f3(z,z,y),z).  [factor(112,b,c),merge(e)].
+167 -C(x,y) | C(x,z) | -overlaps(f3(z,z,y),y) | -overlaps(f3(z,z,y),z).  [factor(113,b,c)].
+168 -C(x,f7(y,y)) | C(x,y).  [factor(115,b,c),unit_del(c,66)].
+169 C(x,y) | -C(x,z) | overlaps(f3(z,y,y),y) | overlaps(f3(z,y,y),z).  [factor(116,c,e)].
+170 C(x,y) | -C(x,z) | overlaps(f3(z,z,y),y) | overlaps(f3(z,z,y),z).  [factor(116,d,e)].
+171 C(x,y) | -C(x,z) | -overlaps(f3(z,y,y),y).  [factor(118,c,d)].
+172 C(x,f7(x,x)).  [factor(119,b,c),unit_del(b,66)].
+173 C(x,y) | -C(x,z) | overlaps(f3(y,z,y),y) | overlaps(f3(y,z,y),z).  [factor(120,c,d)].
+174 C(x,y) | -C(x,z) | -overlaps(f3(y,z,y),y).  [factor(121,c,d)].
+175 C(x,f7(x,y)) | -C(x,y).  [factor(123,b,c)].
+176 part(x,y) | overlaps(f3(x,y,y),y) | overlaps(f3(x,y,y),x).  [factor(124,b,d)].
+177 part(x,y) | overlaps(f3(x,x,y),y) | overlaps(f3(x,x,y),x).  [factor(124,c,d)].
+178 part(x,y) | -overlaps(f3(x,y,y),y).  [factor(126,b,c)].
+179 part(x,y) | overlaps(f3(y,x,y),y) | overlaps(f3(y,x,y),x).  [factor(128,b,c)].
+180 part(x,y) | -overlaps(f3(y,x,y),y).  [factor(129,b,c)].
+181 mub(x,x,y) | -part(x,y) | -mub(z,z,y) | -part(z,f9(x,x,y)).  [factor(151,d,e)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.01 seconds.
+
+given #1 (I,wt=3): 54 part(x,x).  [clausify(1)].
+
+given #2 (I,wt=9): 56 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+
+given #3 (I,wt=8): 57 -overlaps(x,y) | part(f1(x,y),x).  [clausify(4)].
+
+given #4 (I,wt=8): 58 -overlaps(x,y) | part(f1(x,y),y).  [clausify(4)].
+
+given #5 (I,wt=9): 59 overlaps(x,y) | -part(z,x) | -part(z,y).  [clausify(4)].
+
+given #6 (I,wt=8): 60 part(x,y) | part(f2(x,y),x).  [clausify(5)].
+
+given #7 (I,wt=8): 61 part(x,y) | -overlaps(f2(x,y),y).  [clausify(5)].
+
+given #8 (I,wt=3): 66 C(x,x).  [clausify(11)].
+
+given #9 (I,wt=6): 67 -C(x,y) | C(y,x).  [clausify(12)].
+
+given #10 (I,wt=9): 68 -C(x,y) | -part(y,z) | C(x,z).  [clausify(13)].
+
+given #11 (I,wt=5): 69 part(x,f8(x,y)).  [clausify(18)].
+
+given #12 (I,wt=5): 70 part(x,f8(y,x)).  [clausify(18)].
+
+given #13 (I,wt=7): 71 -mub(x,y,z) | part(x,z).  [clausify(19)].
+
+given #14 (I,wt=7): 72 -mub(x,y,z) | part(y,z).  [clausify(19)].
+
+given #15 (I,wt=16): 73 mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f9(x,y,z)).  [clausify(19)].
+
+given #16 (I,wt=16): 74 mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f9(x,y,z)).  [clausify(19)].
+
+given #17 (I,wt=4): 75 mub(x,x,x).  [clausify(20)].
+
+given #18 (I,wt=8): 76 -mub(x,y,z) | mub(y,x,z).  [clausify(21)].
+
+given #19 (I,wt=7): 77 -part(x,y) | mub(x,y,y).  [clausify(23)].
+
+given #20 (I,wt=14): 78 -mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(24)].
+
+given #21 (I,wt=14): 79 -mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(25)].
+
+given #22 (I,wt=8): 80 -path(x) | mub(f10(x),f11(x),x).  [clausify(26)].
+
+given #23 (I,wt=2): 85 atom(x).  [clausify(28)].
+
+given #24 (I,wt=2): 86 path(c2).  [deny(29)].
+
+given #25 (I,wt=3): 87 part(c3,c2).  [deny(29)].
+
+given #26 (I,wt=2): 88 -path(c3).  [deny(29)].
+
+given #27 (I,wt=16): 89 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(34,d,30,a)].
+
+given #28 (I,wt=16): 90 mub(x,y,z) | -part(x,z) | -part(y,z) | part(f9(x,y,z),z).  [resolve(35,d,31,a)].
+
+given #29 (I,wt=16): 92 mub(x,y,z) | -part(x,z) | -part(y,z) | f9(x,y,z) != z.  [copy(91),flip(d)].
+
+given #30 (I,wt=26): 93 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f9(x,y,z)) | -part(w,f9(x,y,z)).  [resolve(35,d,34,d)].
+
+given #31 (I,wt=4): 94 part(x,f14(x)).  [resolve(36,a,31,a)].
+
+given #32 (I,wt=4): 95 f14(x) != x.  [resolve(36,a,32,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.00) seconds.
+% Length of proof is 20.
+% Level of proof is 4.
+% Maximum clause weight is 16.000.
+% Given clauses 32.
+
+6 (all x all y (ppart(x,y) <-> part(x,y) & x != y)) # label(non_clause).  [assumption].
+10 (all x (top(x) <-> (all y part(y,x)))) # label(non_clause).  [assumption].
+17 (exists x top(x)) # label(non_clause).  [assumption].
+19 (all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))) # label(non_clause).  [assumption].
+20 (all x mub(x,x,x)) # label(non_clause).  [assumption].
+28 (all x exists y (atom(x) & ppart(x,y))) # label(non_clause).  [assumption].
+30 ppart(x,y) | -part(x,y) | y = x.  [clausify(6)].
+31 -ppart(x,y) | part(x,y).  [clausify(6)].
+32 -ppart(x,y) | y != x.  [clausify(6)].
+34 -mub(x,y,z) | -part(x,u) | -part(y,u) | -ppart(u,z).  [clausify(19)].
+36 ppart(x,f14(x)).  [clausify(28)].
+52 -top(x) | part(y,x).  [clausify(10)].
+53 top(c1).  [clausify(17)].
+75 mub(x,x,x).  [clausify(20)].
+89 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(34,d,30,a)].
+94 part(x,f14(x)).  [resolve(36,a,31,a)].
+95 f14(x) != x.  [resolve(36,a,32,a)].
+142 part(x,c1).  [resolve(53,a,52,a)].
+275 -part(f14(x),x).  [ur(89,a,75,a,b,94,a,c,94,a,e,95,a(flip))].
+276 $F.  [resolve(275,a,142,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=32. Generated=326. Kept=221. proofs=1.
+Usable=32. Sos=162. Demods=0. Limbo=16, Disabled=124. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=105. Back_subsumed=8.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=2.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=587. Nonunit_bsub_feature_tests=835.
+Megabytes=0.50.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 75704 exit (max_proofs) Tue Jan 23 16:33:06 2024

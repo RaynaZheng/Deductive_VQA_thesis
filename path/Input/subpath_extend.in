@@ -1,0 +1,85 @@
+formulas(assumptions).
+% mereology --- part()
+(all x
+	(part(x,x))).
+
+(all x all y
+	((part(x,y)
+	& part(y,x))
+	->
+	(x=y))).
+
+(all x all y all z
+	((part(x,y)
+	& part(y,z))
+	->
+	part(x,z))).
+
+% def: proper part --- ppart()
+(all x all y
+	(ppart(x,y)
+	<->
+	(part(x,y) & (x != y)))).
+
+% def: atom()
+(all x 
+	(atom(x) 
+	<->  
+	(all y (part(y, x) -> (y = x))))).
+
+% def: minimal upper bound --- mub()
+(all x all y all z
+	(mub(x,y,z)
+	<-> 
+	(part(x,z) & part(y,z) & 
+	-(exists u
+		(part(x,u) & part(y,u) & ppart(u,z)))))).
+
+
+% mub properties
+(all x 
+	(mub(x,x,x))).
+
+(all x all y all z
+	(mub(x,y,z) -> mub(y,x,z))).
+
+(all x all y all z 
+	(mub(x,y,z) -> part(x,z))).
+
+(all x all y all z 
+	(part(x,y) <-> mub(x,y,y))).
+
+(all x all y all z all u 
+	((mub(x,y,z) & mub(x,y,u) & part(z,u))
+	->
+	(z = u))).
+
+(all x all y all z all u all w
+	((mub(x,y,z) & part(x,u) & part(u,z))
+	-> mub(u,y,z))).
+
+(all x all y all u all v 
+	((mub(u,v,x) & atom(u) & atom(v) & part(y,x))
+	->
+	(exists s exists t
+		(mub(s,t,y) & atom(s) & atom(t))))).	
+
+(all x all y all z
+	((part(x,z)
+	& part(y,z))
+	->
+	(exists u
+		(mub(x,y,u)
+		& part(u,z))))).
+
+end_of_list.
+
+formulas(goals).
+
+(all x all y all z all u 
+	((mub(x,y,z) & ppart(u,z) & atom(x) & atom(y))
+	->
+	(exists w 
+		(mub(u,x,w))))). 
+		
+end_of_list.

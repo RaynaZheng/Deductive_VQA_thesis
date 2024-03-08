@@ -1,0 +1,182 @@
+formulas(assumptions).
+
+
+% mereology --- part()
+(all x
+	(part(x,x))).
+
+(all x all y
+	((part(x,y)
+	& part(y,x))
+	->
+	(x=y))).
+
+(all x all y all z
+	((part(x,y)
+	& part(y,z))
+	->
+	part(x,z))).
+
+% def: overlaps()
+(all x all y
+	(overlaps(x,y)
+	<->
+	(exists z
+		(part(z,x)
+		& part(z,y))))).
+
+(all x all y
+	(-part(x,y)
+	->
+	(exists z
+		(part(z,x)
+		& -overlaps(z,y))))).
+
+% def: proper part --- ppart()
+(all x all y
+	(ppart(x,y)
+	<->
+	(part(x,y) & (x != y)))).
+
+% def: sum()
+(all x all y all z
+	(sum(x,y,z)
+	<->
+	(all v
+		(overlaps(v,z)
+		<->
+		(overlaps(v,x)
+		| overlaps(v,y)))))).
+
+% def: atom()
+(all x 
+	(atom(x) 
+	<->  
+	(all y (part(y, x) -> (y = x))))).
+
+% There exist indivisible elements that are not atoms
+(all x 
+ 	(atom(x) | (exists y ((y != x) & ppart(y,x))))).
+
+% def: top element in the CISCO structure --- top() 
+(all x 
+	(top(x) 
+	<->
+	(all y
+		(part(y,x))))).
+
+(all x all y all z
+	(sum(x,y,z)
+	-> 
+	(part(x,z)))).
+
+(exists x (top(x))).
+
+(all x all y 
+	(exists z
+		(part(x,z) & part(y,z)))).
+
+% def: minimal upper bound --- mub()
+(all x all y all z
+	(mub(x,y,z)
+	<-> 
+	(part(x,z) & part(y,z) & 
+	-(exists u
+		(part(x,u) & part(y,u) & ppart(u,z)))))).
+
+
+% mub properties
+
+(all x all y
+	(exists z
+		(mub(x,y,z)))).
+
+(all x 
+	(mub(x,x,x))).
+
+% def: path()
+(all x 
+	(path(x)
+	<-> 
+	(exists y exists z 
+		(mub(y,z,x) & atom(y) & atom(z))))).
+
+% atomic path 
+(all x 
+	(atom(x)
+	-> 
+	(path(x)))).
+
+% atom height 
+%(all x exists y exists z
+%	(atom(y) & sum(y, z, x) & -part(y,z))).
+
+% subpath 
+(all x all y
+	((path(x) & part(y,x)) 
+	-> 
+	path(y))).
+
+(all x all y
+    (subpath(x,y)
+    <->
+    (path(x) & path(y) & part(x,y)))).
+
+(all x all y all u all v 
+	((mub(u,v,x) & atom(u) & atom(v) & part(y,x))
+	->
+	(exists s exists t
+		(mub(s,t,y) & atom(s) & atom(t))))).	
+
+% def greatest lower bound --- glb
+(all x all y all m
+	(glb(x,y,m)
+	<->
+	(part(m,x)
+	& part(m,y)
+	& (all z
+		((part(z,x)
+		& part(z,y))
+		->
+		part(z,m)))))).
+
+(all x all y all z
+	((part(x,z)
+	& part(y,z))
+	->
+	(exists u
+		(mub(x,y,u)
+		& part(u,z))))).
+
+(all x all y all z all u 
+	((mub(x,y,z) & ppart(u,z) & atom(x) & atom(y))
+	->
+	(exists w 
+		(mub(u,x,w))))). 
+
+% path_split
+(all a all b all x 
+	((mub(a,b,x) & atom(a) & atom(b))
+	-> 
+	(exists c exists y exists z
+		(atom(c) & mub(a,c,y) & mub(c,b,z) & sum(y,z,x))))).
+		
+%xysubpath        
+(all x all y all p 
+	((path(p) & atom(x) & atom(y) 
+	& part(x,p) & part(y,p) & (x != y))
+	-> 
+	(exists u 
+		(mub(x,y,u) & path(u) & part(u,p))))).
+
+end_of_list.
+
+formulas(goals).
+
+(all x all y all z all u all w 
+    (mub(x,y,z) & atom(x) & atom(y) 
+    & part(x,u) & part(u,p) & part(x,w) & part(w,p))
+    -> 
+    (part(u,w) | part(w,u))).
+		
+end_of_list.

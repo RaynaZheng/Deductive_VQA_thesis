@@ -1,0 +1,292 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 52393 was started by raynazheng on Raynas-MacBook-Air.local,
+Thu Jan 25 22:49:55 2024
+The command was "bin/prover9 -f /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/subpath_extend.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file /Users/raynazheng/Dropbox/cisco/graphs/verification/FinalVersion/Input/subpath_extend.in
+
+
+formulas(assumptions).
+(all x part(x,x)).
+(all x all y (part(x,y) & part(y,x) -> x = y)).
+(all x all y all z (part(x,y) & part(y,z) -> part(x,z))).
+(all x all y (ppart(x,y) <-> part(x,y) & x != y)).
+(all x (atom(x) <-> (all y (part(y,x) -> y = x)))).
+(all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))).
+(all x mub(x,x,x)).
+(all x all y all z (mub(x,y,z) -> mub(y,x,z))).
+(all x all y all z (mub(x,y,z) -> part(x,z))).
+(all x all y all z (part(x,y) <-> mub(x,y,y))).
+(all x all y all z all u (mub(x,y,z) & mub(x,y,u) & part(z,u) -> z = u)).
+(all x all y all z all u all w (mub(x,y,z) & part(x,u) & part(u,z) -> mub(u,y,z))).
+(all x all y all u all v (mub(u,v,x) & atom(u) & atom(v) & part(y,x) -> (exists s exists t (mub(s,t,y) & atom(s) & atom(t))))).
+(all x all y all z (part(x,z) & part(y,z) -> (exists u (mub(x,y,u) & part(u,z))))).
+end_of_list.
+
+formulas(goals).
+(all x all y all z all u (mub(x,y,z) & ppart(u,z) & atom(x) & atom(y) -> (exists w mub(u,x,w)))).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x part(x,x)) # label(non_clause).  [assumption].
+2 (all x all y (part(x,y) & part(y,x) -> x = y)) # label(non_clause).  [assumption].
+3 (all x all y all z (part(x,y) & part(y,z) -> part(x,z))) # label(non_clause).  [assumption].
+4 (all x all y (ppart(x,y) <-> part(x,y) & x != y)) # label(non_clause).  [assumption].
+5 (all x (atom(x) <-> (all y (part(y,x) -> y = x)))) # label(non_clause).  [assumption].
+6 (all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))) # label(non_clause).  [assumption].
+7 (all x mub(x,x,x)) # label(non_clause).  [assumption].
+8 (all x all y all z (mub(x,y,z) -> mub(y,x,z))) # label(non_clause).  [assumption].
+9 (all x all y all z (mub(x,y,z) -> part(x,z))) # label(non_clause).  [assumption].
+10 (all x all y all z (part(x,y) <-> mub(x,y,y))) # label(non_clause).  [assumption].
+11 (all x all y all z all u (mub(x,y,z) & mub(x,y,u) & part(z,u) -> z = u)) # label(non_clause).  [assumption].
+12 (all x all y all z all u all w (mub(x,y,z) & part(x,u) & part(u,z) -> mub(u,y,z))) # label(non_clause).  [assumption].
+13 (all x all y all u all v (mub(u,v,x) & atom(u) & atom(v) & part(y,x) -> (exists s exists t (mub(s,t,y) & atom(s) & atom(t))))) # label(non_clause).  [assumption].
+14 (all x all y all z (part(x,z) & part(y,z) -> (exists u (mub(x,y,u) & part(u,z))))) # label(non_clause).  [assumption].
+15 (all x all y all z all u (mub(x,y,z) & ppart(u,z) & atom(x) & atom(y) -> (exists w mub(u,x,w)))) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+part(x,x).  [clausify(1)].
+-part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+-part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+-ppart(x,y) | part(x,y).  [clausify(4)].
+-ppart(x,y) | y != x.  [clausify(4)].
+ppart(x,y) | -part(x,y) | y = x.  [clausify(4)].
+-atom(x) | -part(y,x) | y = x.  [clausify(5)].
+atom(x) | part(f1(x),x).  [clausify(5)].
+atom(x) | f1(x) != x.  [clausify(5)].
+-mub(x,y,z) | part(x,z).  [clausify(6)].
+-mub(x,y,z) | part(y,z).  [clausify(6)].
+-mub(x,y,z) | -part(x,u) | -part(y,u) | -ppart(u,z).  [clausify(6)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f2(x,y,z)).  [clausify(6)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f2(x,y,z)).  [clausify(6)].
+mub(x,y,z) | -part(x,z) | -part(y,z) | ppart(f2(x,y,z),z).  [clausify(6)].
+mub(x,x,x).  [clausify(7)].
+-mub(x,y,z) | mub(y,x,z).  [clausify(8)].
+-mub(x,y,z) | part(x,z).  [clausify(9)].
+-part(x,y) | mub(x,y,y).  [clausify(10)].
+part(x,y) | -mub(x,y,y).  [clausify(10)].
+-mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(11)].
+-mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(12)].
+-mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | mub(f3(z,u,x,y),f4(z,u,x,y),u).  [clausify(13)].
+-mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f3(z,u,x,y)).  [clausify(13)].
+-mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f4(z,u,x,y)).  [clausify(13)].
+-part(x,y) | -part(z,y) | mub(x,z,f5(x,z,y)).  [clausify(14)].
+-part(x,y) | -part(z,y) | part(f5(x,z,y),y).  [clausify(14)].
+mub(c1,c2,c3).  [deny(15)].
+ppart(c4,c3).  [deny(15)].
+atom(c1).  [deny(15)].
+atom(c2).  [deny(15)].
+-mub(c4,c1,x).  [deny(15)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating ppart/2
+16 ppart(x,y) | -part(x,y) | y = x.  [clausify(4)].
+17 -ppart(x,y) | part(x,y).  [clausify(4)].
+18 -ppart(x,y) | y != x.  [clausify(4)].
+19 -mub(x,y,z) | -part(x,u) | -part(y,u) | -ppart(u,z).  [clausify(6)].
+Derived: -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(19,d,16,a)].
+20 mub(x,y,z) | -part(x,z) | -part(y,z) | ppart(f2(x,y,z),z).  [clausify(6)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | part(f2(x,y,z),z).  [resolve(20,d,17,a)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | z != f2(x,y,z).  [resolve(20,d,18,a)].
+Derived: mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f2(x,y,z)) | -part(w,f2(x,y,z)).  [resolve(20,d,19,d)].
+21 ppart(c4,c3).  [deny(15)].
+Derived: part(c4,c3).  [resolve(21,a,17,a)].
+Derived: c3 != c4.  [resolve(21,a,18,a)].
+Derived: -mub(x,y,c3) | -part(x,c4) | -part(y,c4).  [resolve(21,a,19,d)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ =, atom, part, mub ]).
+Function symbol precedence:  function_order([ c1, c2, c3, c4, f1, f2, f5, f3, f4 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      22 part(x,x).  [clausify(1)].
+kept:      23 -part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+kept:      24 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+kept:      25 -atom(x) | -part(y,x) | y = x.  [clausify(5)].
+kept:      26 atom(x) | part(f1(x),x).  [clausify(5)].
+kept:      27 atom(x) | f1(x) != x.  [clausify(5)].
+kept:      28 -mub(x,y,z) | part(x,z).  [clausify(6)].
+kept:      29 -mub(x,y,z) | part(y,z).  [clausify(6)].
+kept:      30 mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f2(x,y,z)).  [clausify(6)].
+kept:      31 mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f2(x,y,z)).  [clausify(6)].
+kept:      32 mub(x,x,x).  [clausify(7)].
+kept:      33 -mub(x,y,z) | mub(y,x,z).  [clausify(8)].
+kept:      34 -part(x,y) | mub(x,y,y).  [clausify(10)].
+kept:      35 -mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(11)].
+kept:      36 -mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(12)].
+kept:      37 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | mub(f3(z,u,x,y),f4(z,u,x,y),u).  [clausify(13)].
+kept:      38 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f3(z,u,x,y)).  [clausify(13)].
+kept:      39 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f4(z,u,x,y)).  [clausify(13)].
+kept:      40 -part(x,y) | -part(z,y) | mub(x,z,f5(x,z,y)).  [clausify(14)].
+kept:      41 -part(x,y) | -part(z,y) | part(f5(x,z,y),y).  [clausify(14)].
+kept:      42 mub(c1,c2,c3).  [deny(15)].
+kept:      43 atom(c1).  [deny(15)].
+kept:      44 atom(c2).  [deny(15)].
+kept:      45 -mub(c4,c1,x).  [deny(15)].
+kept:      46 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(19,d,16,a)].
+kept:      47 mub(x,y,z) | -part(x,z) | -part(y,z) | part(f2(x,y,z),z).  [resolve(20,d,17,a)].
+           48 mub(x,y,z) | -part(x,z) | -part(y,z) | z != f2(x,y,z).  [resolve(20,d,18,a)].
+kept:      49 mub(x,y,z) | -part(x,z) | -part(y,z) | f2(x,y,z) != z.  [copy(48),flip(d)].
+kept:      50 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f2(x,y,z)) | -part(w,f2(x,y,z)).  [resolve(20,d,19,d)].
+kept:      51 part(c4,c3).  [resolve(21,a,17,a)].
+           52 c3 != c4.  [resolve(21,a,18,a)].
+kept:      53 c4 != c3.  [copy(52),flip(a)].
+kept:      54 -mub(x,y,c3) | -part(x,c4) | -part(y,c4).  [resolve(21,a,19,d)].
+kept:      55 mub(x,x,y) | -part(x,y) | part(x,f2(x,x,y)).  [factor(30,b,c)].
+kept:      56 -mub(x,x,y) | -atom(x) | -part(z,y) | mub(f3(y,z,x,x),f4(y,z,x,x),z).  [factor(37,b,c)].
+kept:      57 -mub(x,x,y) | -atom(x) | -part(z,y) | atom(f3(y,z,x,x)).  [factor(38,b,c)].
+kept:      58 -mub(x,x,y) | -atom(x) | -part(z,y) | atom(f4(y,z,x,x)).  [factor(39,b,c)].
+kept:      59 -part(x,y) | mub(x,x,f5(x,x,y)).  [factor(40,a,b)].
+kept:      60 -part(x,y) | part(f5(x,x,y),y).  [factor(41,a,b)].
+kept:      61 -mub(x,x,y) | -part(x,z) | -part(z,y) | y = z.  [factor(46,b,c)].
+kept:      62 mub(x,x,y) | -part(x,y) | part(f2(x,x,y),y).  [factor(47,b,c)].
+kept:      63 mub(x,x,y) | -part(x,y) | f2(x,x,y) != y.  [factor(49,b,c)].
+kept:      64 mub(x,x,y) | -part(x,y) | -mub(z,u,y) | -part(z,f2(x,x,y)) | -part(u,f2(x,x,y)).  [factor(50,b,c)].
+kept:      65 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,u,z) | -part(u,f2(x,y,z)).  [factor(50,e,f)].
+kept:      66 -mub(x,x,c3) | -part(x,c4).  [factor(54,b,c)].
+kept:      67 mub(x,x,y) | -part(x,y) | -mub(z,z,y) | -part(z,f2(x,x,y)).  [factor(64,d,e)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+22 part(x,x).  [clausify(1)].
+23 -part(x,y) | -part(y,x) | y = x.  [clausify(2)].
+24 -part(x,y) | -part(y,z) | part(x,z).  [clausify(3)].
+25 -atom(x) | -part(y,x) | y = x.  [clausify(5)].
+26 atom(x) | part(f1(x),x).  [clausify(5)].
+27 atom(x) | f1(x) != x.  [clausify(5)].
+28 -mub(x,y,z) | part(x,z).  [clausify(6)].
+29 -mub(x,y,z) | part(y,z).  [clausify(6)].
+30 mub(x,y,z) | -part(x,z) | -part(y,z) | part(x,f2(x,y,z)).  [clausify(6)].
+31 mub(x,y,z) | -part(x,z) | -part(y,z) | part(y,f2(x,y,z)).  [clausify(6)].
+32 mub(x,x,x).  [clausify(7)].
+33 -mub(x,y,z) | mub(y,x,z).  [clausify(8)].
+34 -part(x,y) | mub(x,y,y).  [clausify(10)].
+35 -mub(x,y,z) | -mub(x,y,u) | -part(z,u) | u = z.  [clausify(11)].
+36 -mub(x,y,z) | -part(x,u) | -part(u,z) | mub(u,y,z).  [clausify(12)].
+37 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | mub(f3(z,u,x,y),f4(z,u,x,y),u).  [clausify(13)].
+38 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f3(z,u,x,y)).  [clausify(13)].
+39 -mub(x,y,z) | -atom(x) | -atom(y) | -part(u,z) | atom(f4(z,u,x,y)).  [clausify(13)].
+40 -part(x,y) | -part(z,y) | mub(x,z,f5(x,z,y)).  [clausify(14)].
+41 -part(x,y) | -part(z,y) | part(f5(x,z,y),y).  [clausify(14)].
+42 mub(c1,c2,c3).  [deny(15)].
+43 atom(c1).  [deny(15)].
+44 atom(c2).  [deny(15)].
+45 -mub(c4,c1,x).  [deny(15)].
+46 -mub(x,y,z) | -part(x,u) | -part(y,u) | -part(u,z) | z = u.  [resolve(19,d,16,a)].
+47 mub(x,y,z) | -part(x,z) | -part(y,z) | part(f2(x,y,z),z).  [resolve(20,d,17,a)].
+49 mub(x,y,z) | -part(x,z) | -part(y,z) | f2(x,y,z) != z.  [copy(48),flip(d)].
+50 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,w,z) | -part(u,f2(x,y,z)) | -part(w,f2(x,y,z)).  [resolve(20,d,19,d)].
+51 part(c4,c3).  [resolve(21,a,17,a)].
+53 c4 != c3.  [copy(52),flip(a)].
+54 -mub(x,y,c3) | -part(x,c4) | -part(y,c4).  [resolve(21,a,19,d)].
+55 mub(x,x,y) | -part(x,y) | part(x,f2(x,x,y)).  [factor(30,b,c)].
+56 -mub(x,x,y) | -atom(x) | -part(z,y) | mub(f3(y,z,x,x),f4(y,z,x,x),z).  [factor(37,b,c)].
+57 -mub(x,x,y) | -atom(x) | -part(z,y) | atom(f3(y,z,x,x)).  [factor(38,b,c)].
+58 -mub(x,x,y) | -atom(x) | -part(z,y) | atom(f4(y,z,x,x)).  [factor(39,b,c)].
+59 -part(x,y) | mub(x,x,f5(x,x,y)).  [factor(40,a,b)].
+60 -part(x,y) | part(f5(x,x,y),y).  [factor(41,a,b)].
+61 -mub(x,x,y) | -part(x,z) | -part(z,y) | y = z.  [factor(46,b,c)].
+62 mub(x,x,y) | -part(x,y) | part(f2(x,x,y),y).  [factor(47,b,c)].
+63 mub(x,x,y) | -part(x,y) | f2(x,x,y) != y.  [factor(49,b,c)].
+64 mub(x,x,y) | -part(x,y) | -mub(z,u,y) | -part(z,f2(x,x,y)) | -part(u,f2(x,x,y)).  [factor(50,b,c)].
+65 mub(x,y,z) | -part(x,z) | -part(y,z) | -mub(u,u,z) | -part(u,f2(x,y,z)).  [factor(50,e,f)].
+66 -mub(x,x,c3) | -part(x,c4).  [factor(54,b,c)].
+67 mub(x,x,y) | -part(x,y) | -mub(z,z,y) | -part(z,f2(x,x,y)).  [factor(64,d,e)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds.
+% Length of proof is 13.
+% Level of proof is 3.
+% Maximum clause weight is 13.000.
+% Given clauses 29.
+
+4 (all x all y (ppart(x,y) <-> part(x,y) & x != y)) # label(non_clause).  [assumption].
+6 (all x all y all z (mub(x,y,z) <-> part(x,z) & part(y,z) & -(exists u (part(x,u) & part(y,u) & ppart(u,z))))) # label(non_clause).  [assumption].
+14 (all x all y all z (part(x,z) & part(y,z) -> (exists u (mub(x,y,u) & part(u,z))))) # label(non_clause).  [assumption].
+15 (all x all y all z all u (mub(x,y,z) & ppart(u,z) & atom(x) & atom(y) -> (exists w mub(u,x,w)))) # label(non_clause) # label(goal).  [goal].
+17 -ppart(x,y) | part(x,y).  [clausify(4)].
+21 ppart(c4,c3).  [deny(15)].
+28 -mub(x,y,z) | part(x,z).  [clausify(6)].
+40 -part(x,y) | -part(z,y) | mub(x,z,f5(x,z,y)).  [clausify(14)].
+42 mub(c1,c2,c3).  [deny(15)].
+45 -mub(c4,c1,x).  [deny(15)].
+51 part(c4,c3).  [resolve(21,a,17,a)].
+99 part(c1,c3).  [resolve(42,a,28,a)].
+131 $F.  [ur(40,a,51,a,c,45,a),unit_del(a,99)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=29. Generated=139. Kept=107. proofs=1.
+Usable=29. Sos=61. Demods=0. Limbo=17, Disabled=39. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=31. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=231. Nonunit_bsub_feature_tests=253.
+Megabytes=0.25.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 52393 exit (max_proofs) Thu Jan 25 22:49:55 2024

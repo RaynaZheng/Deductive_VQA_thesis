@@ -1,0 +1,141 @@
+formulas(assumptions).
+
+% mereology --- part()
+(all x
+	(part(x,x))).
+
+(all x all y
+	((part(x,y)
+	& part(y,x))
+	->
+	(x=y))).
+
+(all x all y all z
+	((part(x,y)
+	& part(y,z))
+	->
+	part(x,z))).
+
+% def: overlaps()
+(all x all y
+	(overlaps(x,y)
+	<->
+	(exists z
+		(part(z,x)
+		& part(z,y))))).
+
+(all x all y
+	(-part(x,y)
+	->
+	(exists z
+		(part(z,x)
+		& -overlaps(z,y))))).
+
+% def: atom()
+(all x 
+	(atom(x) 
+	<->  
+	(all y (part(y, x) -> (y = x))))).
+
+(all x (C(x,x))).
+
+(all x all y (C(x,y) -> C(y,x))).
+
+(all x all y all z
+	((C(x,y)
+	& part(y,z))
+	->
+	C(x,z))).
+
+(all x all y
+	(C(x,y)
+	<->
+	(exists z
+		(sum(x,y,z))))).
+
+% def: sum()
+(all x all y all z
+	(sum(x,y,z)
+	<->
+	(all v
+		(overlaps(v,z)
+		<->
+		(overlaps(v,x)
+		| overlaps(v,y)))))).
+
+
+% mub properties
+
+(all x all y
+	(exists z
+		(mub(x,y,z)))).
+
+% supplement axiom 9/5
+% assume all graphs are connected 
+% C(x,y) means 'contact'
+(all x all y 
+	(-C(x,y)
+	-> 
+	(exists z 
+		(EC(x,z) & EC(z,y))))).
+
+% definition of EC(x,y)
+(all x all y
+	(EC(x,y)
+	<->
+	(C(x,y) & -overlaps(x,y)))).
+
+
+% def: minimal upper bound --- mub()
+(all x all y all z
+	(mub(x,y,z) 
+	<-> 
+	(part(x,z) & part(y,z) & 
+	-(exists u
+		(part(x,u) & part(y,u) & ppart(u,z)))))).
+
+% def: path()
+(all x 
+	(path(x)
+	<-> 
+	(exists y exists z 
+		(mub(y,z,x) & atom(y) & atom(z))))).
+
+(all x all y all u 
+	((atom(x) & atom(y) & (x != y))
+	-> 
+	(EC(x,y) | (exists z
+		(EC(x,z) & EC(z,y)))))).
+
+(all x exists y 
+	(atom(y) & part(y,x))).
+
+(all x exists y exists z
+	(atom(y) & sum(y,z,x))).
+
+% proved 
+(all x all y
+	((atom(x) & atom(y) & EC(x,y))
+	-> 
+	(exists z
+		(mub(x,y,z) & path(z))))).
+
+(all x all y all z all u
+	((EC(u,x) & EC(u,y) & part(z,x) & part(z,y))
+	->
+	(-EC(u,z)))).
+
+(all x exists y exists z
+	(atom(y) & atom(z) & mub(y,z,x))).
+
+end_of_list.
+formulas(goals).
+
+(all x all y all z	
+	((EC(x,z) & EC(z,y) & atom(x) & atom(y) & -C(x,y))
+	->
+	(exists u 
+		(mub(x,y,u) & (x != y) & part(z,u))))).
+
+
+end_of_list.

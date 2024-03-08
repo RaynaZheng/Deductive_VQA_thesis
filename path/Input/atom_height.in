@@ -1,0 +1,10 @@
+formulas(assumptions).
+
+end_of_list.
+formulas(goals).
+
+% atom height 
+(all x exists y exists z
+	(atom(y) & sum(y, z, x))).
+	
+end_of_list.

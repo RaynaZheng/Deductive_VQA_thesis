@@ -1,0 +1,10 @@
+formulas(assumptions).
+end_of_list.
+formulas(goals).
+
+(all x all y
+	((path(x) & part(y,x)) 
+	-> 
+	path(y))).
+	
+end_of_list.

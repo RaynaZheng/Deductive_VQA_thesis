@@ -1,0 +1,136 @@
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 180).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+(all x
+	(part(x,x))).
+
+(all x all y
+	((part(x,y)
+	& part(y,x))
+	->
+	(x=y))).
+
+(all x all y all z
+	((part(x,y)
+	& part(y,z))
+	->
+	part(x,z))).
+
+(all x all y
+	(overlaps(x,y)
+	<->
+	(exists z
+		(part(z,x)
+		& part(z,y))))).
+
+(all x all y
+        (ppart(x,y)
+        <->
+        (part(x,y) & (x != y)))).
+
+(all x all y
+	(-part(x,y)
+	->
+	(exists z
+		(part(z,x)
+		& -overlaps(z,y))))).
+
+(all x all y all z
+        (sum(x,y,z)
+        <->
+                (all v
+                        (overlaps(v,z)
+                        <->
+                        (overlaps(v,x)
+                        | overlaps(v,y)))))).
+
+all x (atom(x) <->  (all y (part(y, x) -> (y = x)))).
+
+(all x 
+	(exists y
+		(atom(y)
+		& part(y,x)))).
+
+(all x all y
+	(covers(x,y)
+	<->
+	(ppart(y,x)
+	& -(exists z
+		(ppart(y,z)
+		& ppart(z,x)))))).
+
+(all x all y
+        (ppart(x,y)
+        ->
+        (exists z
+                (covers(z,x)
+                & part(z,y))))).
+
+(all x all y
+        (ppart(x,y)
+        ->
+        (exists z
+                (covers(y,z)
+                & part(x,z))))).
+
+(all x all y (sum(x,x,y) -> (x=y))).
+(all x all y all z ((sum(y,z,x) & part(y,z)) -> (x=z))).
+(all x all y all z all u ((sum(x,y,z) & sum(x,y,u)) -> (z=u))).
+(all x all y (part(x,y) <-> sum(x,y,y))).
+(all x all y all z (sum(x,y,z) -> part(x,z))).
+(all x all y all z (sum(x,y,z) -> sum(y,x,z))).
+
+(all x all y all z
+        ((atom(z)
+        & sum(z,y,x)
+        & -part(z,y)) -> ppart(y,x))).
+
+(all x all y all z
+	((atom(z)
+	& sum(z,y,x)
+	& -part(z,y)
+    & -covers(x,y)) -> (exists u (covers(x,u) & ppart(y,u))))).
+
+(all x all y (-part(x,y) -> (exists a (atom(a) & part(a,x) & -part(a,y))))).
+
+(all x all y all z all a ((sum(x,y,z) & atom(a)) -> (part(a,z) <-> (part(a,x) | part(a,y))))).
+
+(all x all y all z all u ((sum(x,y,z) & part(u,x) & ppart(y,u) & ppart(z,u)) -> (u=x))).
+
+(all x all y all z all u
+        ((atom(z)
+        & sum(z,y,x)
+        & -part(z,y)
+        & covers(x,u)
+        & ppart(y,u))
+        ->
+        (exists a
+                (atom(a)
+                & (a != z)
+                & -part(a,y)
+                & part(a,u))))).
+
+end_of_list.
+
+formulas(goals).
+
+(all x all y all z
+        ((atom(z)
+        & sum(z,y,x)
+        & -part(z,y))
+        ->
+        covers(x,y))).
+
+end_of_list.
+

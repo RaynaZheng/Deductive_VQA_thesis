@@ -1,0 +1,16 @@
+formulas(assumptions).	
+
+end_of_list.
+
+formulas(goals).
+
+% Lemma 2 Axiom: Existence of a Connected Induced Path for Elements in a Path Graph
+(all x all y all p 
+	((path(p) & atom(x) & atom(y) 
+	& part(x,p) & part(y,p) & (x != y))
+	-> 
+	(exists u 
+		(mub(x,y,u) & path(u) & part(u,p))))).
+
+
+end_of_list.

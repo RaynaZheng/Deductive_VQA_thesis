@@ -1,0 +1,10 @@
+formulas(assumptions).
+
+end_of_list.
+
+formulas(goals).
+
+(exists x exists y exists z
+	(forks(x) & plate(y) & knife(z) & graph_bet(x,y,z))).
+
+end_of_list.

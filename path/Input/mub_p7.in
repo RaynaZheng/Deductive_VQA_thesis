@@ -1,0 +1,23 @@
+formulas(assumptions).
+
+(all x all y all z
+        (lub(x,y,z)
+        <->
+        (all u
+                (part(z,u)
+                <->
+                (part(x,u) & part(y,u)))))).
+
+(all x all y
+	(exists z
+		(lub(x,y,z)))).
+
+end_of_list.
+formulas(goals).
+
+(all x all y all z
+	(lub(x,y,z)
+	->
+	mub(x,y,z))). 
+	
+end_of_list.

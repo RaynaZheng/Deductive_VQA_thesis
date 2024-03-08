@@ -1,0 +1,280 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 77351 was started by raynazheng on Raynas-MacBook-Air.local,
+Wed Feb 28 20:23:41 2024
+The command was "bin/prover9 -f /Users/raynazheng/Dropbox/Thesis/verification/question_subset2.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file /Users/raynazheng/Dropbox/Thesis/verification/question_subset2.in
+
+
+formulas(assumptions).
+plate(o2) & to_the_left_of(o2,o6) & knife(o6) & o2 != o6.
+(all x all y (to_the_left_of(x,y) -> next_to(x,y))).
+(all x all y (to_the_right_of(x,y) -> next_to(x,y))).
+(all x all y all z (graph_bet(x,z,y) <-> (exists u (mub(x,y,u) & part(z,u) & atom(z) & atom(x) & atom(y))))).
+(all x all y (next_to(x,y) <-> (exists z (atom(x) & atom(y) & x != y & sum(x,y,z))))).
+(all x all y (next_to(x,y) -> next_to(y,x))).
+(all x all y (atom(x) & atom(y) & x != y -> (next_to(x,y) <-> EC(x,y)))).
+(all x all y all z (EC(x,z) & EC(z,y) & atom(x) & atom(y) & -C(x,y) -> (exists u (mub(x,y,u) & x != y & part(z,u))))).
+(all x all y (C(x,y) <-> (exists z sum(x,y,z)))).
+end_of_list.
+
+formulas(goals).
+(exists x exists y (knife(x) & plate(y) & next_to(x,y))).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 plate(o2) & to_the_left_of(o2,o6) & knife(o6) & o2 != o6 # label(non_clause).  [assumption].
+2 (all x all y (to_the_left_of(x,y) -> next_to(x,y))) # label(non_clause).  [assumption].
+3 (all x all y (to_the_right_of(x,y) -> next_to(x,y))) # label(non_clause).  [assumption].
+4 (all x all y all z (graph_bet(x,z,y) <-> (exists u (mub(x,y,u) & part(z,u) & atom(z) & atom(x) & atom(y))))) # label(non_clause).  [assumption].
+5 (all x all y (next_to(x,y) <-> (exists z (atom(x) & atom(y) & x != y & sum(x,y,z))))) # label(non_clause).  [assumption].
+6 (all x all y (next_to(x,y) -> next_to(y,x))) # label(non_clause).  [assumption].
+7 (all x all y (atom(x) & atom(y) & x != y -> (next_to(x,y) <-> EC(x,y)))) # label(non_clause).  [assumption].
+8 (all x all y all z (EC(x,z) & EC(z,y) & atom(x) & atom(y) & -C(x,y) -> (exists u (mub(x,y,u) & x != y & part(z,u))))) # label(non_clause).  [assumption].
+9 (all x all y (C(x,y) <-> (exists z sum(x,y,z)))) # label(non_clause).  [assumption].
+10 (exists x exists y (knife(x) & plate(y) & next_to(x,y))) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+plate(o2).  [clausify(1)].
+to_the_left_of(o2,o6).  [clausify(1)].
+knife(o6).  [clausify(1)].
+o6 != o2.  [clausify(1)].
+-to_the_left_of(x,y) | next_to(x,y).  [clausify(2)].
+-to_the_right_of(x,y) | next_to(x,y).  [clausify(3)].
+-graph_bet(x,y,z) | mub(x,z,f1(x,z,y)).  [clausify(4)].
+-graph_bet(x,y,z) | part(y,f1(x,z,y)).  [clausify(4)].
+-graph_bet(x,y,z) | atom(y).  [clausify(4)].
+-graph_bet(x,y,z) | atom(x).  [clausify(4)].
+-graph_bet(x,y,z) | atom(z).  [clausify(4)].
+graph_bet(x,y,z) | -mub(x,z,u) | -part(y,u) | -atom(y) | -atom(x) | -atom(z).  [clausify(4)].
+-next_to(x,y) | atom(x).  [clausify(5)].
+-next_to(x,y) | atom(y).  [clausify(5)].
+-next_to(x,y) | y != x.  [clausify(5)].
+-next_to(x,y) | sum(x,y,f2(x,y)).  [clausify(5)].
+next_to(x,y) | -atom(x) | -atom(y) | y = x | -sum(x,y,z).  [clausify(5)].
+-next_to(x,y) | next_to(y,x).  [clausify(6)].
+-atom(x) | -atom(y) | y = x | -next_to(x,y) | EC(x,y).  [clausify(7)].
+-atom(x) | -atom(y) | y = x | next_to(x,y) | -EC(x,y).  [clausify(7)].
+-EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | mub(x,z,f3(x,z,y)).  [clausify(8)].
+-EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | z != x.  [clausify(8)].
+-EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | part(y,f3(x,z,y)).  [clausify(8)].
+-C(x,y) | sum(x,y,f4(x,y)).  [clausify(9)].
+C(x,y) | -sum(x,y,z).  [clausify(9)].
+-knife(x) | -plate(y) | -next_to(x,y).  [deny(10)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating plate/1
+11 -knife(x) | -plate(y) | -next_to(x,y).  [deny(10)].
+12 plate(o2).  [clausify(1)].
+Derived: -knife(x) | -next_to(x,o2).  [resolve(11,b,12,a)].
+
+Eliminating to_the_left_of/2
+13 -to_the_left_of(x,y) | next_to(x,y).  [clausify(2)].
+14 to_the_left_of(o2,o6).  [clausify(1)].
+Derived: next_to(o2,o6).  [resolve(13,a,14,a)].
+
+Eliminating knife/1
+15 -knife(x) | -next_to(x,o2).  [resolve(11,b,12,a)].
+16 knife(o6).  [clausify(1)].
+Derived: -next_to(o6,o2).  [resolve(15,a,16,a)].
+
+Eliminating to_the_right_of/2
+
+Eliminating graph_bet/3
+17 graph_bet(x,y,z) | -mub(x,z,u) | -part(y,u) | -atom(y) | -atom(x) | -atom(z).  [clausify(4)].
+18 -graph_bet(x,y,z) | mub(x,z,f1(x,z,y)).  [clausify(4)].
+19 -graph_bet(x,y,z) | part(y,f1(x,z,y)).  [clausify(4)].
+20 -graph_bet(x,y,z) | atom(y).  [clausify(4)].
+21 -graph_bet(x,y,z) | atom(x).  [clausify(4)].
+22 -graph_bet(x,y,z) | atom(z).  [clausify(4)].
+Derived: -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | mub(x,y,f1(x,y,u)).  [resolve(17,a,18,a)].
+Derived: -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | part(u,f1(x,y,u)).  [resolve(17,a,19,a)].
+
+Eliminating sum/3
+23 next_to(x,y) | -atom(x) | -atom(y) | y = x | -sum(x,y,z).  [clausify(5)].
+24 -next_to(x,y) | sum(x,y,f2(x,y)).  [clausify(5)].
+25 -C(x,y) | sum(x,y,f4(x,y)).  [clausify(9)].
+Derived: -C(x,y) | next_to(x,y) | -atom(x) | -atom(y) | y = x.  [resolve(25,b,23,e)].
+26 C(x,y) | -sum(x,y,z).  [clausify(9)].
+Derived: C(x,y) | -next_to(x,y).  [resolve(26,b,24,b)].
+
+Eliminating C/2
+27 -C(x,y) | next_to(x,y) | -atom(x) | -atom(y) | y = x.  [resolve(25,b,23,e)].
+28 -EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | mub(x,z,f3(x,z,y)).  [clausify(8)].
+29 -EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | z != x.  [clausify(8)].
+30 -EC(x,y) | -EC(y,z) | -atom(x) | -atom(z) | C(x,z) | part(y,f3(x,z,y)).  [clausify(8)].
+Derived: next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | -atom(x) | -atom(y) | mub(x,y,f3(x,y,z)).  [resolve(27,a,28,e)].
+Derived: next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | -atom(x) | -atom(y) | part(z,f3(x,y,z)).  [resolve(27,a,30,e)].
+31 C(x,y) | -next_to(x,y).  [resolve(26,b,24,b)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ =, atom, next_to, EC, part, mub ]).
+Function symbol precedence:  function_order([ o2, o6, f1, f3 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      32 o6 != o2.  [clausify(1)].
+kept:      33 -next_to(x,y) | atom(x).  [clausify(5)].
+kept:      34 -next_to(x,y) | atom(y).  [clausify(5)].
+kept:      35 -next_to(x,y) | y != x.  [clausify(5)].
+kept:      36 -next_to(x,y) | next_to(y,x).  [clausify(6)].
+kept:      37 -atom(x) | -atom(y) | y = x | -next_to(x,y) | EC(x,y).  [clausify(7)].
+kept:      38 -atom(x) | -atom(y) | y = x | next_to(x,y) | -EC(x,y).  [clausify(7)].
+kept:      39 next_to(o2,o6).  [resolve(13,a,14,a)].
+kept:      40 -next_to(o6,o2).  [resolve(15,a,16,a)].
+kept:      41 -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | mub(x,y,f1(x,y,u)).  [resolve(17,a,18,a)].
+kept:      42 -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | part(u,f1(x,y,u)).  [resolve(17,a,19,a)].
+           43 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | -atom(x) | -atom(y) | mub(x,y,f3(x,y,z)).  [resolve(27,a,28,e)].
+kept:      44 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | mub(x,y,f3(x,y,z)).  [copy(43),merge(g),merge(h)].
+           45 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | -atom(x) | -atom(y) | part(z,f3(x,y,z)).  [resolve(27,a,30,e)].
+kept:      46 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | part(z,f3(x,y,z)).  [copy(45),merge(g),merge(h)].
+kept:      47 -mub(x,y,z) | -part(x,z) | -atom(x) | -atom(y) | mub(x,y,f1(x,y,x)).  [factor(41,c,d)].
+kept:      48 -mub(x,y,z) | -part(y,z) | -atom(y) | -atom(x) | mub(x,y,f1(x,y,y)).  [factor(41,c,e)].
+kept:      49 -mub(x,x,y) | -part(z,y) | -atom(z) | -atom(x) | mub(x,x,f1(x,x,z)).  [factor(41,d,e)].
+kept:      50 -mub(x,y,z) | -part(x,z) | -atom(x) | -atom(y) | part(x,f1(x,y,x)).  [factor(42,c,d)].
+kept:      51 -mub(x,y,z) | -part(y,z) | -atom(y) | -atom(x) | part(y,f1(x,y,y)).  [factor(42,c,e)].
+kept:      52 -mub(x,x,y) | -part(z,y) | -atom(z) | -atom(x) | part(z,f1(x,x,z)).  [factor(42,d,e)].
+kept:      53 -mub(x,x,y) | -part(x,y) | -atom(x) | mub(x,x,f1(x,x,x)).  [factor(47,c,d)].
+kept:      54 -mub(x,x,y) | -part(x,y) | -atom(x) | part(x,f1(x,x,x)).  [factor(50,c,d)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+32 o6 != o2.  [clausify(1)].
+33 -next_to(x,y) | atom(x).  [clausify(5)].
+34 -next_to(x,y) | atom(y).  [clausify(5)].
+35 -next_to(x,y) | y != x.  [clausify(5)].
+36 -next_to(x,y) | next_to(y,x).  [clausify(6)].
+37 -atom(x) | -atom(y) | y = x | -next_to(x,y) | EC(x,y).  [clausify(7)].
+38 -atom(x) | -atom(y) | y = x | next_to(x,y) | -EC(x,y).  [clausify(7)].
+39 next_to(o2,o6).  [resolve(13,a,14,a)].
+40 -next_to(o6,o2).  [resolve(15,a,16,a)].
+41 -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | mub(x,y,f1(x,y,u)).  [resolve(17,a,18,a)].
+42 -mub(x,y,z) | -part(u,z) | -atom(u) | -atom(x) | -atom(y) | part(u,f1(x,y,u)).  [resolve(17,a,19,a)].
+44 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | mub(x,y,f3(x,y,z)).  [copy(43),merge(g),merge(h)].
+46 next_to(x,y) | -atom(x) | -atom(y) | y = x | -EC(x,z) | -EC(z,y) | part(z,f3(x,y,z)).  [copy(45),merge(g),merge(h)].
+47 -mub(x,y,z) | -part(x,z) | -atom(x) | -atom(y) | mub(x,y,f1(x,y,x)).  [factor(41,c,d)].
+48 -mub(x,y,z) | -part(y,z) | -atom(y) | -atom(x) | mub(x,y,f1(x,y,y)).  [factor(41,c,e)].
+49 -mub(x,x,y) | -part(z,y) | -atom(z) | -atom(x) | mub(x,x,f1(x,x,z)).  [factor(41,d,e)].
+50 -mub(x,y,z) | -part(x,z) | -atom(x) | -atom(y) | part(x,f1(x,y,x)).  [factor(42,c,d)].
+51 -mub(x,y,z) | -part(y,z) | -atom(y) | -atom(x) | part(y,f1(x,y,y)).  [factor(42,c,e)].
+52 -mub(x,x,y) | -part(z,y) | -atom(z) | -atom(x) | part(z,f1(x,x,z)).  [factor(42,d,e)].
+53 -mub(x,x,y) | -part(x,y) | -atom(x) | mub(x,x,f1(x,x,x)).  [factor(47,c,d)].
+54 -mub(x,x,y) | -part(x,y) | -atom(x) | part(x,f1(x,x,x)).  [factor(50,c,d)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.01 seconds.
+
+given #1 (I,wt=3): 32 o6 != o2.  [clausify(1)].
+
+given #2 (I,wt=5): 33 -next_to(x,y) | atom(x).  [clausify(5)].
+
+given #3 (I,wt=5): 34 -next_to(x,y) | atom(y).  [clausify(5)].
+
+given #4 (I,wt=6): 35 -next_to(x,y) | y != x.  [clausify(5)].
+
+given #5 (I,wt=6): 36 -next_to(x,y) | next_to(y,x).  [clausify(6)].
+
+given #6 (I,wt=13): 37 -atom(x) | -atom(y) | y = x | -next_to(x,y) | EC(x,y).  [clausify(7)].
+
+given #7 (I,wt=13): 38 -atom(x) | -atom(y) | y = x | next_to(x,y) | -EC(x,y).  [clausify(7)].
+
+given #8 (I,wt=3): 39 next_to(o2,o6).  [resolve(13,a,14,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds.
+% Length of proof is 14.
+% Level of proof is 4.
+% Maximum clause weight is 6.000.
+% Given clauses 8.
+
+1 plate(o2) & to_the_left_of(o2,o6) & knife(o6) & o2 != o6 # label(non_clause).  [assumption].
+2 (all x all y (to_the_left_of(x,y) -> next_to(x,y))) # label(non_clause).  [assumption].
+6 (all x all y (next_to(x,y) -> next_to(y,x))) # label(non_clause).  [assumption].
+10 (exists x exists y (knife(x) & plate(y) & next_to(x,y))) # label(non_clause) # label(goal).  [goal].
+11 -knife(x) | -plate(y) | -next_to(x,y).  [deny(10)].
+12 plate(o2).  [clausify(1)].
+13 -to_the_left_of(x,y) | next_to(x,y).  [clausify(2)].
+14 to_the_left_of(o2,o6).  [clausify(1)].
+15 -knife(x) | -next_to(x,o2).  [resolve(11,b,12,a)].
+16 knife(o6).  [clausify(1)].
+36 -next_to(x,y) | next_to(y,x).  [clausify(6)].
+39 next_to(o2,o6).  [resolve(13,a,14,a)].
+40 -next_to(o6,o2).  [resolve(15,a,16,a)].
+57 $F.  [resolve(39,a,36,a),unit_del(a,40)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=8. Generated=34. Kept=23. proofs=1.
+Usable=8. Sos=14. Demods=0. Limbo=1, Disabled=35. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=10. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=13. Nonunit_bsub_feature_tests=53.
+Megabytes=0.10.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 77351 exit (max_proofs) Wed Feb 28 20:23:41 2024

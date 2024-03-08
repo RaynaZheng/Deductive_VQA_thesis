@@ -1,0 +1,31 @@
+formulas(assumptions).
+
+
+%definition of graph_bet(x,z,y): vertex z is between two vertices x and y 
+(all x all y all z 
+	(graph_bet(x,z,y)
+	<-> 
+	(exists u
+		(mub(x,y,u) & part(z,u) & atom(z) & atom(x) & atom(y))))).
+
+(all x all y	
+	(next_to(x,y) 
+	<->
+	(exists z
+		(atom(x) & atom(y) & (x != y) & sum(x,y,z))))).
+
+(all x all y
+	(next_to(x,y)
+	->
+	next_to(y,x))).
+
+(all x all y
+	-(next_to(x,x))).
+
+(all x all y
+	((atom(x) & atom(y) & (x != y))
+	->
+	(next_to(x,y)
+	<->
+	EC(x,y)))).
+end_of_list.

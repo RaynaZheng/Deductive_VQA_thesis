@@ -1,0 +1,21 @@
+formulas(assumptions).
+
+(all x all y	
+	(next_to(x,y) 
+	<->
+	(exists z
+		(atom(x) & atom(y) & (x != y) & sum(x,y,z))))).
+
+end_of_list.
+
+formulas(goals).
+
+
+(all x all y
+	((atom(x) & atom(y) & (x != y))
+	->
+	(next_to(x,y)
+	<->
+	EC(x,y)))).
+
+end_of_list.

@@ -1,0 +1,11 @@
+formulas(assumptions).
+end_of_list.
+
+formulas(goals).
+
+(all x all y all z all u all p
+	((mub(x,y,z) & mub(x,u,z) & part(z,p) & path(p))
+    -> 
+    (part(u,y)| part(y,u)))). 
+		
+end_of_list.
